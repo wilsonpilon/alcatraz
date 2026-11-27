@@ -53,7 +53,7 @@ if (pixels.some(byte => (byte >> 4) === 15 || (byte & 15) === 15)) {
     console.error("A imagem usa a cor reservada para o logotipo.");
     process.exit(1);
 }
-const colors = Buffer.concat([Buffer.from([0, 0]), data.subarray(pixelsEnd), Buffer.from([0x70, 0])]);
+const colors = Buffer.concat([Buffer.from([0, 0]), data.subarray(pixelsEnd), Buffer.from([0x52, 0x03])]);
 function nearestColor(target) {
     let best = 1, distance = Infinity;
     for (let i = 1; i <= 14; ++i) {
@@ -67,7 +67,7 @@ function nearestColor(target) {
 }
 fs.writeFileSync(path.join(out, "opening_palette.h"),
     `static const u8 g_opening_palette[32] = { ${[...colors].map(c => `0x${c.toString(16).padStart(2, "0")}`).join(", ")} };\n` +
-    `#define OPENING_BLACK ${nearestColor(0)}\n#define OPENING_WHITE ${nearestColor(7)}\n#define OPENING_RED 15\n`);
+    `#define OPENING_BLACK ${nearestColor(0)}\n#define OPENING_WHITE ${nearestColor(7)}\n#define OPENING_ACCENT 15\n`);
 fs.writeFileSync(screen, data.subarray(0, pixelsEnd));
 const number = `${next.major}.${next.build}`;
 fs.writeFileSync(path.join(out, "build_version.h"), `#define ALCATRAZ_VERSION "${number}"\n`);

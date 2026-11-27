@@ -13,7 +13,7 @@ Copy-Item (Join-Path $dos "MSXDOS2.SYS"), (Join-Path $dos "COMMAND2.COM") $work
 Copy-Item (Join-Path $out "alcatraz.com"), (Join-Path $out "ALCATRAZ.SC5") $work
 [IO.File]::WriteAllText((Join-Path $work "AUTOEXEC.BAT"), "ALCATRAZ`r`n", [Text.Encoding]::ASCII)
 $valid = [IO.File]::ReadAllBytes((Join-Path $work "ALCATRAZ.SC5"))
-$cases = @("missing", "badheader", "shortheader", "truncated", "incompatible", "valid", "valid-escape")
+$cases = @("missing", "badheader", "shortheader", "truncated", "incompatible", "valid", "valid-escape", "animation-escape")
 foreach ($case in $cases) {
     $env:ALCATRAZ_SC5_CASE = $case
     $image = Join-Path $work "ALCATRAZ.SC5"

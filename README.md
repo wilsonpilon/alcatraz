@@ -6,7 +6,7 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 2.4 — Frank Morris: tela de título SCREEN 5
+## 2.5 — Frank Morris: desenho progressivo do título
 
 Pré-release: ainda não há jogo, mapa, parser nem música. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
@@ -17,7 +17,8 @@ principal de pelo menos 2048 KB, PSG e MSX-MUSIC/FM. SCC é opcional e
 anteriores a MSX 2+ ou DOS 2, a mensagem é exibida em texto.
 
 Em uma máquina compatível, pressione **Enter** no diagnóstico para abrir a
-tela de título: a imagem recebe o logotipo original, os créditos e a
+tela de título: a imagem aparece primeiro e o logotipo original é desenhado
+progressivamente, letra por letra, seguido dos créditos e da
 instrução **Tecle [ESPACO] para comecar**. **Espaço** avança para uma tela
 provisória que informa que o jogo está em desenvolvimento; **Esc** retorna
 ao DOS. A animação de tiros e a música ainda não foram implementadas.
@@ -40,7 +41,7 @@ Mantenha projeto e MSXgl no mesmo volume: o build do MSXgl move arquivos
 intermediários entre eles. A saída é `out\alcatraz.com`; execute-a a
 partir do MSX-DOS 2, com `out\ALCATRAZ.SC5` no diretório atual do MSX.
 O build converte `images\openscreen.jpg` para SCREEN 5 (256×212), usando 14
-cores para a imagem e reservando uma cor vermelha para o logotipo; a paleta
+cores para a imagem e reservando um tom terracota para o logotipo; a paleta
 é incorporada ao programa. O arquivo
 SC5 gerado é binário BSAVE de 212 linhas; o carregador exige início na
 VRAM 0 e conteúdo completo, e usa a paleta da imagem de abertura compilada
@@ -56,8 +57,9 @@ a listagem de referência no MSX-BASIC. O disco inicia a recriação por
 `AUTOEXEC.BAT`; para executar o BASIC, inicie o MSX-BASIC com suporte a disco,
 insira `smoke.dsk` e execute `RUN "ALCATRAZ.BAS"`. A listagem incluída é a
 versão em inglês presente em `docs\alcatraz.bas`.
-Para testar imagem, créditos, logotipo, espaço, saída, falhas de arquivo e
-bloqueio em máquina incompatível:
+Para testar imagem antes do desenho, progressão do logotipo, créditos,
+espaço, saída inclusive durante a animação, falhas de arquivo e bloqueio em
+máquina incompatível:
 `pwsh -File tests\run-sc5.ps1 -OpenMSX caminho\openmsx.exe`.
 
 Para comparar a abertura com a listagem BASIC local em
@@ -73,7 +75,8 @@ O código está dividido em inicialização (`src\main.c`), diagnóstico
 (`src\title_logo.c`) e imagem SC5 (`src\opening.c`). A abertura Disprosoft
 desenha primitivas em SCREEN 2; os contornos de arcos são uma aproximação
 inteira ao BASIC. O logotipo do título usa as coordenadas da listagem
-`docs\abertura.asc`.
+`docs\abertura.asc`, preservando o desenho estilizado; os textos da abertura
+usam uma fonte diferente da empregada no diagnóstico.
 
 Cada compilação **bem-sucedida pelo `build.bat`** incrementa Y em X.Y;
 uma falha não altera a versão. Um marco completo inicia o próximo X em Y=1:

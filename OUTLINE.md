@@ -29,8 +29,9 @@ Paleta: preto e azuis escuros para profundidade, branco para informação e
 vermelho como acento dramático. Desenvolver arte original, coesa e legível
 em 256 pixels; avaliar uso de páginas de VRAM e atualizações parciais.
 Uma tela de título abre após o diagnóstico: logotipo do BASIC desenhado
-sobre a imagem em SCREEN 5, com créditos e instrução de espaço. A imagem
-usa 14 cores e o logotipo usa vermelho reservado. O modo suporta até 212
+sobre a imagem em SCREEN 5, desenhado progressivamente letra por letra, com
+créditos e instrução de espaço. A imagem usa 14 cores e o logotipo usa um
+terracota reservado, escolhido em harmonia com a fotografia. O modo suporta até 212
 linhas, mas a interface final e a necessidade de
 VRAM devem ser validadas antes de serem fixadas.
 
@@ -109,3 +110,9 @@ espera pela tecla espaço. A listagem indicada `docs\intro.bas` estava vazia;
 as coordenadas equivalentes foram encontradas em `docs\abertura.asc`.
 O espaço abre uma tela provisória, pois o jogo ainda não existe. Animação
 de tiros e música de introdução ficam para instruções futuras.
+
+Na conversa seguinte, foi solicitada a exibição da fotografia antes do
+desenho progressivo, uma cor mais suave e, se possível, letras e fontes
+melhores. O logotipo mantém as formas originais reconhecíveis, agora em
+terracota com sombra escura; os textos usam outra fonte MSXgl. Esc também
+interrompe o desenho. A animação de tiros e a música continuam futuras.

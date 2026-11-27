@@ -39,6 +39,12 @@ FEITO NA FUNDACAO
   A imagem usa 14 cores e reserva vermelho para o desenho do logotipo.
 - Validacao da tela de titulo e dos textos, tecla espaco mantida, transicao,
   Esc, quatro configuracoes de hardware e sete casos SC5 no openMSX.
+- Desenho progressivo: a fotografia aparece primeiro e o logotipo original
+  surge letra por letra em terracota, com sombra escura; textos usam uma
+  fonte MSXgl diferente. Esc interrompe tambem a animacao. No openMSX, a
+  ultima letra comeca a surgir cerca de 5,5 segundos apos a imagem aparecer.
+- Versao 2.5 validada: oito casos SC5, quatro configuracoes de hardware e
+  comparacao da abertura Disprosoft no openMSX; smoke.dsk inclui o BASIC.
 
 LIMITACOES
 - SCC aparece como N/T: falta uma deteccao confiavel que nao perturbe
@@ -85,3 +91,6 @@ obtidas de docs\abertura.asc. Animacao e musica ficam para proxima etapa.
 2026-11-27 — Usuario solicitou incluir docs\alcatraz.bas no smoke.dsk para
 comparar a recriacao com a listagem de referencia. A copia foi verificada
 byte a byte e executada no openMSX; e a versao em ingles desse arquivo.
+2026-11-27 — Usuario pediu a foto visivel antes do logotipo, desenho
+progressivo, cor suave e melhorias nas letras e fontes. Preservado o
+formato original do logotipo; alterados a cor e a fonte dos textos.

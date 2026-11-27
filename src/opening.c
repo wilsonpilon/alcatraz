@@ -3,6 +3,7 @@
 #include "dos.h"
 #include "draw.h"
 #include "title_logo.h"
+#include "font/font_mgl_std1.h"
 #include "../out/opening_palette.h"
 
 extern const u8 g_Font_MGL_Sample6[];
@@ -39,30 +40,43 @@ done:
 	return success;
 }
 
+static void title_line(u16 x, u16 y, const c8* message)
+{
+	Print_SetPosition(x, y);
+	while (*message)
+	{
+		if (*message == ' ')
+			Print_Space();
+		else
+			Print_DrawChar(*message);
+		++message;
+	}
+}
+
 static void title_text(u16 x, u16 y, const c8* message)
 {
 	Print_SetColor(OPENING_BLACK, OPENING_BLACK);
-	Print_SetPosition(x + 1, y + 1);
-	Print_DrawText(message);
+	title_line(x + 1, y + 1, message);
 	Print_SetColor(OPENING_WHITE, OPENING_BLACK);
-	Print_SetPosition(x, y);
-	Print_DrawText(message);
+	title_line(x, y, message);
 }
 
-static void show_title(void)
+static bool show_title(void)
 {
-	TitleLogo_Draw(OPENING_BLACK, OPENING_RED);
-	Print_SetBitmapFont(g_Font_MGL_Sample6);
+	if (!TitleLogo_Draw(OPENING_BLACK, OPENING_ACCENT))
+		return FALSE;
+	Print_SetBitmapFont(g_Font_MGL_Std1);
 	Print_SetMode(PRINT_MODE_BITMAP_TRANS);
 	title_text(41, 20, "Programa de Wilson F. Martins");
 	title_text(47, 30, "Remake por Wilson \"B\" Pilon");
 	Draw_FillBox(72, 92, 184, 104, OPENING_BLACK, VDP_OP_IMP);
 	title_text(77, 94, "A FUGA IMPOSSIVEL");
 	Draw_FillBox(35, 181, 222, 195, OPENING_BLACK, VDP_OP_IMP);
-	Draw_LineH(35, 222, 181, OPENING_RED, VDP_OP_IMP);
-	Draw_LineH(35, 222, 195, OPENING_RED, VDP_OP_IMP);
+	Draw_LineH(35, 222, 181, OPENING_ACCENT, VDP_OP_IMP);
+	Draw_LineH(35, 222, 195, OPENING_ACCENT, VDP_OP_IMP);
 	title_text(47, 184, "Tecle [ESPACO] para comecar");
 	VDP_CommandWait();
+	return TRUE;
 }
 
 static void show_unfinished_game(void)
@@ -70,6 +84,7 @@ static void show_unfinished_game(void)
 	VDP_EnableDisplay(FALSE);
 	VDP_SetPalette(g_diagnostic_palette);
 	VDP_CommandHMMV(0, 0, 256, 212, 0);
+	Print_SetBitmapFont(g_Font_MGL_Sample6);
 	Print_SetMode(PRINT_MODE_BITMAP);
 	Print_SetColor(4, 0);
 	Print_SetPosition(56, 90);
@@ -100,8 +115,10 @@ u8 Opening_Show(void)
 		return 1;
 	}
 	VDP_SetPalette(g_opening_palette);
-	show_title();
+	VDP_CommandWait();
 	VDP_EnableDisplay(TRUE);
+	if (!show_title())
+		return 0;
 	while (Keyboard_IsKeyPressed(KEY_SPACE) && !Keyboard_IsKeyPressed(KEY_ESC))
 		Halt();
 	while (!Keyboard_IsKeyPressed(KEY_SPACE) && !Keyboard_IsKeyPressed(KEY_ESC))

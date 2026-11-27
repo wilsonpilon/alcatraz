@@ -59,12 +59,30 @@ static void draw_glyph(const Glyph* glyph, u8 offset, u8 color)
 	}
 }
 
-void TitleLogo_Draw(u8 shadow, u8 color)
+static bool wait_frames(u8 count)
+{
+	while (count--)
+	{
+		if (Keyboard_IsKeyPressed(KEY_ESC))
+			return FALSE;
+		Halt();
+	}
+	return !Keyboard_IsKeyPressed(KEY_ESC);
+}
+
+bool TitleLogo_Draw(u8 shadow, u8 color)
 {
 	u8 i;
+	if (!wait_frames(45))
+		return FALSE;
 	for (i = 0; i < sizeof(glyphs) / sizeof(glyphs[0]); ++i)
+	{
 		draw_glyph(&glyphs[i], 2, shadow);
-	for (i = 0; i < sizeof(glyphs) / sizeof(glyphs[0]); ++i)
 		draw_glyph(&glyphs[i], 0, color);
+		VDP_CommandWait();
+		if (!wait_frames(8))
+			return FALSE;
+	}
 	Draw_Line(20, 88, 208, 88, color, VDP_OP_IMP);
+	return TRUE;
 }
