@@ -6,7 +6,7 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 2.1 — Frank Morris: abertura Disprosoft e modularização
+## 2.4 — Frank Morris: tela de título SCREEN 5
 
 Pré-release: ainda não há jogo, mapa, parser nem música. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
@@ -16,8 +16,12 @@ principal de pelo menos 2048 KB, PSG e MSX-MUSIC/FM. SCC é opcional e
 **ainda não é detectado**; aparece como N/T (não testado). Em sistemas
 anteriores a MSX 2+ ou DOS 2, a mensagem é exibida em texto.
 
-Em uma máquina compatível, pressione **Enter** no diagnóstico para abrir
-a imagem de Alcatraz; **Esc** retorna ao DOS. A imagem é carregada de
+Em uma máquina compatível, pressione **Enter** no diagnóstico para abrir a
+tela de título: a imagem recebe o logotipo original, os créditos e a
+instrução **Tecle [ESPACO] para comecar**. **Espaço** avança para uma tela
+provisória que informa que o jogo está em desenvolvimento; **Esc** retorna
+ao DOS. A animação de tiros e a música ainda não foram implementadas.
+A imagem é carregada de
 `ALCATRAZ.SC5` no diretório atual do MSX-DOS. Ausência ou corrupção do
 arquivo produz uma mensagem de erro.
 
@@ -35,8 +39,9 @@ projeto, incluindo MSXimg, e execute `build.bat`. A revisão pública testada é
 Mantenha projeto e MSXgl no mesmo volume: o build do MSXgl move arquivos
 intermediários entre eles. A saída é `out\alcatraz.com`; execute-a a
 partir do MSX-DOS 2, com `out\ALCATRAZ.SC5` no diretório atual do MSX.
-O build converte `images\openscreen.jpg` para SCREEN 5 (256×212, 16 cores)
-usando MSXimg e incorpora a paleta correspondente no programa. O arquivo
+O build converte `images\openscreen.jpg` para SCREEN 5 (256×212), usando 14
+cores para a imagem e reservando uma cor vermelha para o logotipo; a paleta
+é incorporada ao programa. O arquivo
 SC5 gerado é binário BSAVE de 212 linhas; o carregador exige início na
 VRAM 0 e conteúdo completo, e usa a paleta da imagem de abertura compilada
 no programa. A pasta `out\` e as ferramentas não são versionadas.
@@ -46,7 +51,8 @@ Para executar os quatro testes gráficos de hardware no openMSX, depois do
 build, use `pwsh -File tests\run-smoke.ps1 -OpenMSX caminho\openmsx.exe`.
 São necessárias as ROMs das máquinas Panasonic FS-A1WX e FS-A1FX, além das
 extensões do openMSX. O disco temporário de teste é gerado em `out\`.
-Para testar imagem válida, falhas de arquivo e bloqueio em máquina incompatível:
+Para testar imagem, créditos, logotipo, espaço, saída, falhas de arquivo e
+bloqueio em máquina incompatível:
 `pwsh -File tests\run-sc5.ps1 -OpenMSX caminho\openmsx.exe`.
 
 Para comparar a abertura com a listagem BASIC local em
@@ -58,9 +64,11 @@ original na tela para comparação. Na máquina testada, a tradução apresenta
 coincidem. As capturas e discos de teste ficam em `out\logo-test\`.
 
 O código está dividido em inicialização (`src\main.c`), diagnóstico
-(`src\diagnostic.c`), abertura Disprosoft (`src\disprosoft.c`) e imagem SC5
-(`src\opening.c`). A abertura desenha retas, caixas, arcos e preenchimentos
-em SCREEN 2; os contornos de arcos são uma aproximação inteira ao BASIC.
+(`src\diagnostic.c`), abertura Disprosoft (`src\disprosoft.c`), título
+(`src\title_logo.c`) e imagem SC5 (`src\opening.c`). A abertura Disprosoft
+desenha primitivas em SCREEN 2; os contornos de arcos são uma aproximação
+inteira ao BASIC. O logotipo do título usa as coordenadas da listagem
+`docs\abertura.asc`.
 
 Cada compilação **bem-sucedida pelo `build.bat`** incrementa Y em X.Y;
 uma falha não altera a versão. Um marco completo inicia o próximo X em Y=1:

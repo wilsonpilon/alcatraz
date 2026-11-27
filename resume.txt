@@ -33,6 +33,12 @@ FEITO NA FUNDACAO
   19 pixels diferentes em 49152, nos contornos aproximados dos arcos.
   A linha 40/41 mesclada e corrigida somente na copia temporaria de teste.
 - Regressoes: quatro configuracoes de hardware e seis casos SC5 passaram.
+- Tela de titulo SCREEN 5: logotipo em vermelho sobre a imagem, creditos do
+  autor e do remake, subtitulo e instrução de espaco. Apos espaco, uma tela
+  provisoria informa que o jogo esta em desenvolvimento; Esc retorna ao DOS.
+  A imagem usa 14 cores e reserva vermelho para o desenho do logotipo.
+- Validacao da tela de titulo e dos textos, tecla espaco mantida, transicao,
+  Esc, quatro configuracoes de hardware e sete casos SC5 no openMSX.
 
 LIMITACOES
 - SCC aparece como N/T: falta uma deteccao confiavel que nao perturbe
@@ -55,6 +61,8 @@ SUBTAREFAS
    medir custo de CPU, VDP, VRAM e mapper.
 5. Som: compor e testar trilha original FM+PSG, avaliar SCC opcional.
 6. Integracao: exercitar trajetos, regressao, hardware e distribuicao.
+7. Abertura: integrar futura animacao de tiros e musica quando o usuario
+   fornecer os detalhes; substituir a tela provisoria pelo jogo.
 
 HISTORICO
 2026-11-27 — Primeira conversa: escopo, requisitos, creditos, versoes e
@@ -71,3 +79,6 @@ antes do jogo, traduzindo as primitivas BASIC para C, e dividir o codigo
 por responsabilidades. Criados modulos e testes de comparacao e transicao.
 O usuario confirmou possuir as permissoes necessarias para publicar tanto
 a reproducao quanto a listagem BASIC de referencia da Disprosoft.
+2026-11-27 — Usuario solicitou logotipo original sobre a imagem SC5, creditos,
+e espera por espaco. A listagem intro.bas estava vazia; coordenadas foram
+obtidas de docs\abertura.asc. Animacao e musica ficam para proxima etapa.

@@ -28,7 +28,9 @@ prioritária. A tela atual é apenas um diagnóstico, não o layout final.
 Paleta: preto e azuis escuros para profundidade, branco para informação e
 vermelho como acento dramático. Desenvolver arte original, coesa e legível
 em 256 pixels; avaliar uso de páginas de VRAM e atualizações parciais.
-Uma imagem experimental abre após o diagnóstico. O modo suporta até 212
+Uma tela de título abre após o diagnóstico: logotipo do BASIC desenhado
+sobre a imagem em SCREEN 5, com créditos e instrução de espaço. A imagem
+usa 14 cores e o logotipo usa vermelho reservado. O modo suporta até 212
 linhas, mas a interface final e a necessidade de
 VRAM devem ser validadas antes de serem fixadas.
 
@@ -100,3 +102,10 @@ openMSX: mesma paleta e texto, 19 pixels de diferença nos contornos. O código
 foi separado em inicialização, abertura Disprosoft, diagnóstico e imagem SC5.
 O responsável confirmou ter as permissões necessárias para publicar a
 reprodução da abertura e a listagem BASIC de referência.
+
+Na conversa seguinte, foi solicitada a tela de título com o logotipo
+estilizado original sobre a imagem SC5, crédito ao autor e ao remake, e
+espera pela tecla espaço. A listagem indicada `docs\intro.bas` estava vazia;
+as coordenadas equivalentes foram encontradas em `docs\abertura.asc`.
+O espaço abre uma tela provisória, pois o jogo ainda não existe. Animação
+de tiros e música de introdução ficam para instruções futuras.

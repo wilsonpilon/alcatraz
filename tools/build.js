@@ -34,6 +34,7 @@ for (const file of [binary, screen, converted]) {
 }
 const image = spawnSync(converter, [sourceImage, "-mode", "sc5", "-resize", "256", "212",
     "-size", "256", "212", "-num", "1", "1", "-pal", "custom",
+    "--palcount", "14",
     "-out", converted, "-format", "bin", "-bload", "-ret0"], { cwd: root, stdio: "inherit" });
 if (image.error || image.status !== 0 || !fs.existsSync(converted)) {
     console.error(`Falha na conversao da imagem: ${image.error || image.status}`);
@@ -42,14 +43,31 @@ if (image.error || image.status !== 0 || !fs.existsSync(converted)) {
 const data = fs.readFileSync(converted);
 fs.unlinkSync(converted);
 const pixelsEnd = 7 + 256 * 212 / 2;
-if (data.length !== pixelsEnd + 30 || data[0] !== 0xFE ||
+if (data.length !== pixelsEnd + 28 || data[0] !== 0xFE ||
     data[1] !== 0 || data[2] !== 0 || data[3] !== 0xFF || data[4] !== 0x69) {
     console.error("Formato inesperado na saida do MSXimg.");
     process.exit(1);
 }
-const colors = Buffer.concat([Buffer.from([0, 0]), data.subarray(pixelsEnd)]);
+const pixels = data.subarray(7, pixelsEnd);
+if (pixels.some(byte => (byte >> 4) === 15 || (byte & 15) === 15)) {
+    console.error("A imagem usa a cor reservada para o logotipo.");
+    process.exit(1);
+}
+const colors = Buffer.concat([Buffer.from([0, 0]), data.subarray(pixelsEnd), Buffer.from([0x70, 0])]);
+function nearestColor(target) {
+    let best = 1, distance = Infinity;
+    for (let i = 1; i <= 14; ++i) {
+        const red = (colors[i * 2] >> 4) & 7;
+        const blue = colors[i * 2] & 7;
+        const green = colors[i * 2 + 1] & 7;
+        const d = (red - target) ** 2 + (green - target) ** 2 + (blue - target) ** 2;
+        if (d < distance) { best = i; distance = d; }
+    }
+    return best;
+}
 fs.writeFileSync(path.join(out, "opening_palette.h"),
-    `static const u8 g_opening_palette[32] = { ${[...colors].map(c => `0x${c.toString(16).padStart(2, "0")}`).join(", ")} };\n`);
+    `static const u8 g_opening_palette[32] = { ${[...colors].map(c => `0x${c.toString(16).padStart(2, "0")}`).join(", ")} };\n` +
+    `#define OPENING_BLACK ${nearestColor(0)}\n#define OPENING_WHITE ${nearestColor(7)}\n#define OPENING_RED 15\n`);
 fs.writeFileSync(screen, data.subarray(0, pixelsEnd));
 const number = `${next.major}.${next.build}`;
 fs.writeFileSync(path.join(out, "build_version.h"), `#define ALCATRAZ_VERSION "${number}"\n`);
