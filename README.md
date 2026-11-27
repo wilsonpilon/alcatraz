@@ -6,7 +6,7 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 2.6 — Frank Morris: crédito do remake
+## 2.7 — Frank Morris: rajada na abertura
 
 Pré-release: ainda não há jogo, mapa, parser nem música. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
@@ -19,9 +19,12 @@ anteriores a MSX 2+ ou DOS 2, a mensagem é exibida em texto.
 Em uma máquina compatível, pressione **Enter** no diagnóstico para abrir a
 tela de título: a imagem aparece primeiro e o logotipo original é desenhado
 progressivamente, letra por letra, seguido dos créditos e da
-instrução **Tecle [ESPACO] para comecar**. **Espaço** avança para uma tela
-provisória que informa que o jogo está em desenvolvimento; **Esc** retorna
-ao DOS. A animação de tiros e a música ainda não foram implementadas.
+instrução **Tecle [ESPACO] para comecar**. **Espaço** remove créditos e
+instrução, mostra dez impactos diagonais de vidro com sons PSG e FM e, após
+cerca de dois segundos, avança para uma tela provisória que informa que o
+jogo está em desenvolvimento. **Esc** retorna ao DOS, inclusive durante a
+animação. A música ainda não foi implementada; a utilização de SCC foi
+adiada por escolha do usuário enquanto não houver detecção segura.
 A imagem é carregada de
 `ALCATRAZ.SC5` no diretório atual do MSX-DOS. Ausência ou corrupção do
 arquivo produz uma mensagem de erro.
@@ -58,8 +61,8 @@ a listagem de referência no MSX-BASIC. O disco inicia a recriação por
 insira `smoke.dsk` e execute `RUN "ALCATRAZ.BAS"`. A listagem incluída é a
 versão em inglês presente em `docs\alcatraz.bas`.
 Para testar imagem antes do desenho, progressão do logotipo, créditos,
-espaço, saída inclusive durante a animação, falhas de arquivo e bloqueio em
-máquina incompatível:
+impactos, gravações PSG e FM, pausa em 50 e 60 Hz, espaço, saída inclusive
+durante as animações, falhas de arquivo e bloqueio em máquina incompatível:
 `pwsh -File tests\run-sc5.ps1 -OpenMSX caminho\openmsx.exe`.
 
 Para comparar a abertura com a listagem BASIC local em
@@ -72,7 +75,8 @@ coincidem. As capturas e discos de teste ficam em `out\logo-test\`.
 
 O código está dividido em inicialização (`src\main.c`), diagnóstico
 (`src\diagnostic.c`), abertura Disprosoft (`src\disprosoft.c`), título
-(`src\title_logo.c`) e imagem SC5 (`src\opening.c`). A abertura Disprosoft
+(`src\title_logo.c`), imagem SC5 (`src\opening.c`) e impactos com som
+(`src\opening_shots.c`). A abertura Disprosoft
 desenha primitivas em SCREEN 2; os contornos de arcos são uma aproximação
 inteira ao BASIC. O logotipo do título usa as coordenadas da listagem
 `docs\abertura.asc`, preservando o desenho estilizado; os textos da abertura

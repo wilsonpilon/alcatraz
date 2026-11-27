@@ -92,7 +92,7 @@ after time 35 {
 		set ::held_ok [expr {[debug read_block VRAM 0 27136] eq $::diagnostic}]
 		keymatrixup 7 0x80
 		set case $::env(ALCATRAZ_SC5_CASE)
-		if {$case eq "valid" || $case eq "valid-escape" || $case eq "animation-escape"} {
+		if {$case in {"valid" "shots-50" "valid-escape" "animation-escape" "shots-escape"}} {
 			set throttle on
 			set file [open [file join $::output ALCATRAZ.SC5] rb]
 			fconfigure $file -translation binary
@@ -106,7 +106,7 @@ after time 35 {
 			set ::probing 1
 			after time 0.05 probe_title
 		}
-		if {$case eq "valid"} {
+		if {$case eq "valid" || $case eq "shots-50"} {
 			after time 0.1 {keymatrixdown 8 0x01}
 		}
 		if {$case eq "animation-escape"} {
@@ -122,15 +122,20 @@ proc inspect {} {
 	set case $::env(ALCATRAZ_SC5_CASE)
 	set ok [expr {$::held_ok && ([debug read {VDP regs} 0] & 14) == 6 &&
 		([debug read {VDP regs} 9] & 128) != 0}]
-	if {$case eq "valid" || $case eq "valid-escape"} {
+	if {$case in {"valid" "shots-50" "valid-escape" "shots-escape"}} {
 		set expected $::expected
 		set file [open [file join $::output .. opening_palette.h] r]
 		set palette_source [read $file]
 		close $file
-		regexp {#define OPENING_WHITE ([0-9]+)} $palette_source -> white
+		regexp {#define OPENING_WHITE ([0-9]+)} $palette_source -> ::white
+		regexp {#define OPENING_BLACK ([0-9]+)} $palette_source -> ::black
+		set white $::white
 		set file [open [file join $::output .. alcatraz.noi] r]
 		set symbols [read $file]
 		close $file
+		if {![regexp {DEF _g_VDP_REGSAV (0x[0-9A-Fa-f]+)} $symbols -> ::vdp_regs_address]} {
+			error "missing VDP register backup"
+		}
 		set font [read_font $symbols g_Font_MGL_Std1]
 		set ::game_font [read_font $symbols g_Font_MGL_Sample6]
 		set text_ok 1
@@ -203,31 +208,113 @@ proc inspect {} {
 }
 proc snapshot {case} {
 	screenshot -raw [file join $::output "${case}.png"]
-	if {$case eq "valid"} {
+	if {$case eq "valid" || $case eq "shots-50"} {
+		set reg9 [expr {([debug read {VDP regs} 9] & ~2) | ($case eq "shots-50" ? 2 : 0)}]
+		debug write {VDP regs} 9 $reg9
+		debug write memory [expr {$::vdp_regs_address + 9}] $reg9
+		set ::frequency_ok [expr {(([debug read {VDP regs} 9] & 2) != 0) == ($case eq "shots-50")}]
 		after time 2 {
 			set ::space_held_ok [expr {[debug read_block VRAM 0 27136] eq $::title}]
 			keymatrixup 8 0x01
 			after time 0.5 {
+				set ::shots_started [machine_info time]
+				set ::first_shot 0
+				set ::last_shot 0
+				set ::credits_restored 0
+				set ::psg_sounding 0
+				set ::fm_sounding 0
+				set ::PSG_ch1_record [file join $::output psg.wav]
+				set {::MSX Music_ch1_record} [file join $::output fm.wav]
 				keymatrixdown 8 0x01
-				after time 0.5 {keymatrixup 8 0x01}
-				after time 3 check_start
+				after time 2 {keymatrixup 8 0x01}
+				after time 0.05 probe_shots
 			}
 		}
 		return
 	}
+	if {$case eq "shots-escape"} {
+		keymatrixdown 8 0x01
+		after time 0.2 {keymatrixup 8 0x01}
+		after time 0.7 {
+			set image [debug read_block VRAM 0 27136]
+			set ::shot_before_escape [expr {[pixel $image 20 48] == $::black && [pixel $image 18 46] == $::white}]
+			keymatrixdown 7 0x04
+			after time 0.3 {keymatrixup 7 0x04}
+			after time 5 check_shot_escape
+		}
+		return
+	}
 	exit_with_escape $case
+}
+proc check_shot_escape {} {
+	set log [open [file join $::output shots-escape.log] a]
+	set ok [expr {$::shot_before_escape && ([debug read {VDP regs} 0] & 14) != 6 &&
+		[debug read {PSG regs} 8] == 0 && ([debug read {MSX Music regs} 0x20] & 0x10) == 0}]
+	puts $log [expr {$ok ? "PASS_EXIT" : "FAIL_EXIT"}]
+	close $log
+	exit
+}
+proc pixel {image x y} {
+	binary scan $image @[expr {$y * 128 + $x / 2}]c pair
+	expr {$x % 2 ? ($pair & 15) : (($pair >> 4) & 15)}
+}
+proc probe_shots {} {
+	set image [debug read_block VRAM 0 27136]
+	set now [machine_info time]
+	if {[debug read {PSG regs} 8] > 0 && ([debug read {PSG regs} 7] & 8) == 0} {
+		set ::psg_sounding 1
+	}
+	if {[debug read {MSX Music regs} 0x20] & 0x10} {set ::fm_sounding 1}
+	set count 0
+	for {set i 0} {$i < 10} {incr i} {
+		set x [expr {20 + $i * 24}]
+		set y [expr {48 + $i * 10}]
+		if {[pixel $image $x $y] != $::black || [pixel $image [expr {$x - 2}] [expr {$y - 2}]] != $::white} break
+		incr count
+	}
+	if {$count > 0 && $count < 10 && !$::first_shot} {
+		set ::first_shot $now
+		set ::credits_restored [expr {
+			[string range $image [expr {20 * 128}] [expr {39 * 128 - 1}]] eq
+				[string range $::expected [expr {20 * 128}] [expr {39 * 128 - 1}]] &&
+			[string range $image [expr {181 * 128}] [expr {196 * 128 - 1}]] eq
+				[string range $::expected [expr {181 * 128}] [expr {196 * 128 - 1}]]}]
+	}
+	if {$count == 10 && !$::last_shot} {
+		set ::last_shot $now
+		screenshot -raw [file join $::output shots.png]
+	}
+	if {([debug read {VDP regs} 1] & 0x40) &&
+		[text_matches $image $::game_font 4 56 90 "JOGO EM DESENVOLVIMENTO"] &&
+		[text_matches $image $::game_font 4 100 106 "ESC: SAIR"]} {
+		set ::after_shots [expr {$now - $::last_shot}]
+		set ::PSG_ch1_record ""
+		set {::MSX Music_ch1_record} ""
+		after time 0.1 check_start
+		return
+	}
+	if {$now - $::shots_started > 15} {
+		set ::after_shots 0
+		set ::PSG_ch1_record ""
+		set {::MSX Music_ch1_record} ""
+		check_start
+		return
+	}
+	after time 0.02 probe_shots
 }
 proc check_start {} {
 	set image [debug read_block VRAM 0 27136]
 	set text1 [text_matches $image $::game_font 4 56 90 "JOGO EM DESENVOLVIMENTO"]
 	set text2 [text_matches $image $::game_font 4 100 106 "ESC: SAIR"]
 	set file [open [file join $::output start-detail.log] w]
-	puts $file "held=$::space_held_ok changed=[expr {$image ne $::title}] text1=$text1 text2=$text2"
+	puts $file "held=$::space_held_ok changed=[expr {$image ne $::title}] text1=$text1 text2=$text2 first=$::first_shot last=$::last_shot restored=$::credits_restored psg=$::psg_sounding fm=$::fm_sounding wait=$::after_shots frequency=$::frequency_ok"
 	close $file
 	screenshot -raw [file join $::output start.png]
-	set ::start_ok [expr {$::space_held_ok && $image ne $::title &&
+	set ::start_ok [expr {$::space_held_ok && $image ne $::title && $::first_shot && $::last_shot && $::frequency_ok &&
+		$::credits_restored && $::psg_sounding && $::fm_sounding && $::after_shots >= 1.8 && $::after_shots <= 2.8 &&
+		[debug read {PSG regs} 8] == 0 && ([debug read {MSX Music regs} 0x20] & 0x10) == 0 &&
 		([debug read {VDP regs} 0] & 14) == 6 && $text1 && $text2}]
-	exit_with_escape valid
+	exit_with_escape $::env(ALCATRAZ_SC5_CASE)
 }
 proc exit_with_escape {case} {
 	keymatrixdown 7 0x04
@@ -237,7 +324,7 @@ proc exit_with_escape {case} {
 proc check_exit {case} {
 	set log [open [file join $::output "${case}.log"] a]
 	set ok [expr {([debug read {VDP regs} 0] & 14) != 6}]
-	if {$case eq "valid"} {set ok [expr {$ok && $::start_ok}]}
+	if {$case eq "valid" || $case eq "shots-50"} {set ok [expr {$ok && $::start_ok}]}
 	puts $log [expr {$ok ? "PASS_EXIT" : "FAIL_EXIT"}]
 	close $log
 	exit

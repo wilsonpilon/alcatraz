@@ -119,3 +119,9 @@ interrompe o desenho. A animação de tiros e a música continuam futuras.
 
 Na conversa seguinte, o crédito do remake foi alterado para Wilson "Barney"
 Pilon e centralizado na tela.
+
+Na conversa seguinte, o usuário pediu uma rajada diagonal após Espaço, com
+impactos de vidro e sons, seguida de uma pausa de cerca de dois segundos.
+Os créditos e a instrução desaparecem antes dos tiros; o fundo original é
+restaurado. Os efeitos usam PSG e FM. O usuário optou por adiar o SCC,
+pois a detecção automática disponível pode alterar outros cartuchos.

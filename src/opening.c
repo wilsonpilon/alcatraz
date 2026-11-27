@@ -2,6 +2,7 @@
 #include "diagnostic.h"
 #include "dos.h"
 #include "draw.h"
+#include "opening_shots.h"
 #include "title_logo.h"
 #include "font/font_mgl_std1.h"
 #include "../out/opening_palette.h"
@@ -115,6 +116,9 @@ u8 Opening_Show(void)
 		return 1;
 	}
 	VDP_SetPalette(g_opening_palette);
+	/* Keep clean text bands in the off-screen page at y + 256. */
+	VDP_CommandHMMM(0, 20, 0, 276, 256, 19);
+	VDP_CommandHMMM(0, 181, 0, 437, 256, 15);
 	VDP_CommandWait();
 	VDP_EnableDisplay(TRUE);
 	if (!show_title())
@@ -125,9 +129,10 @@ u8 Opening_Show(void)
 		Halt();
 	if (Keyboard_IsKeyPressed(KEY_ESC))
 		return 0;
-	while (Keyboard_IsKeyPressed(KEY_SPACE) && !Keyboard_IsKeyPressed(KEY_ESC))
-		Halt();
-	if (!Keyboard_IsKeyPressed(KEY_ESC))
+	VDP_CommandHMMM(0, 276, 0, 20, 256, 19);
+	VDP_CommandHMMM(0, 437, 0, 181, 256, 15);
+	VDP_CommandWait();
+	if (OpeningShots_Play())
 		show_unfinished_game();
 	return 0;
 }

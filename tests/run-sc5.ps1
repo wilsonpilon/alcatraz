@@ -13,7 +13,58 @@ Copy-Item (Join-Path $dos "MSXDOS2.SYS"), (Join-Path $dos "COMMAND2.COM") $work
 Copy-Item (Join-Path $out "alcatraz.com"), (Join-Path $out "ALCATRAZ.SC5") $work
 [IO.File]::WriteAllText((Join-Path $work "AUTOEXEC.BAT"), "ALCATRAZ`r`n", [Text.Encoding]::ASCII)
 $valid = [IO.File]::ReadAllBytes((Join-Path $work "ALCATRAZ.SC5"))
-$cases = @("missing", "badheader", "shortheader", "truncated", "incompatible", "valid", "valid-escape", "animation-escape")
+function Test-WaveSound([string]$path) {
+    $stream = [IO.File]::OpenRead($path)
+    $reader = [IO.BinaryReader]::new($stream)
+    try {
+        if ([Text.Encoding]::ASCII.GetString($reader.ReadBytes(4)) -ne "RIFF") { throw "WAV invalido: $path" }
+        $null = $reader.ReadUInt32()
+        if ([Text.Encoding]::ASCII.GetString($reader.ReadBytes(4)) -ne "WAVE") { throw "WAV invalido: $path" }
+        while ($stream.Position + 8 -le $stream.Length) {
+            $id = [Text.Encoding]::ASCII.GetString($reader.ReadBytes(4))
+            $length = $reader.ReadUInt32()
+            $end = $stream.Position + $length
+            if ($end -gt $stream.Length) { throw "WAV truncado: $path" }
+            if ($id -eq "fmt ") {
+                $format = $reader.ReadUInt16()
+                $channels = $reader.ReadUInt16()
+                $rate = $reader.ReadUInt32()
+                $null = $reader.ReadUInt32()
+                $null = $reader.ReadUInt16()
+                $bits = $reader.ReadUInt16()
+                if ($format -ne 1 -or $channels -ne 1 -or $bits -ne 16) {
+                    throw "Formato WAV inesperado: $path"
+                }
+            }
+            if ($id -eq "data") {
+                if (!$rate) { throw "Formato WAV ausente: $path" }
+                $samples = $reader.ReadBytes($length)
+                $window = [int][Math]::Round($rate * 0.02)
+                $count = [int]($samples.Length / 2)
+                $bursts = 0
+                $sounding = $false
+                for ($start = 0; $start -lt $count; $start += $window) {
+                    $sum = 0.0
+                    $n = 0
+                    $limit = [Math]::Min($start + $window, $count)
+                    for ($i = $start; $i -lt $limit; $i += 4) {
+                        $sample = [BitConverter]::ToInt16($samples, $i * 2)
+                        $sum += [double]$sample * $sample
+                        ++$n
+                    }
+                    $active = ($sum / $n) -gt 360000
+                    if ($active -and !$sounding) { ++$bursts }
+                    $sounding = $active
+                }
+                if ($bursts -ne 10) { throw "Esperados 10 tiros em $path; encontrados $bursts." }
+                return
+            }
+            $stream.Position = $end + ($length % 2)
+        }
+        throw "Dados de audio ausentes: $path"
+    } finally { $reader.Dispose() }
+}
+$cases = @("missing", "badheader", "shortheader", "truncated", "incompatible", "valid", "shots-50", "valid-escape", "animation-escape", "shots-escape")
 foreach ($case in $cases) {
     $env:ALCATRAZ_SC5_CASE = $case
     $image = Join-Path $work "ALCATRAZ.SC5"
@@ -52,6 +103,10 @@ foreach ($case in $cases) {
     if ($process.ExitCode -ne 0 -or !(Test-Path $log) -or
         ((Get-Content $log) -join ",") -ne "PASS,PASS_EXIT") {
         throw "Teste de imagem falhou: $case."
+    }
+    if ($case -eq "valid" -or $case -eq "shots-50") {
+        Test-WaveSound (Join-Path $work "psg.wav")
+        Test-WaveSound (Join-Path $work "fm.wav")
     }
     Write-Output "${case}: PASS"
 }

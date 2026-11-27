@@ -45,6 +45,13 @@ FEITO NA FUNDACAO
   ultima letra comeca a surgir cerca de 5,5 segundos apos a imagem aparecer.
 - Versao 2.5 validada: oito casos SC5, quatro configuracoes de hardware e
   comparacao da abertura Disprosoft no openMSX; smoke.dsk inclui o BASIC.
+- Abertura: apos Espaco, creditos e instrucao desaparecem sobre a foto
+  restaurada; dez marcas diagonais de vidro surgem com efeitos PSG + FM.
+  Apos cerca de dois segundos, aparece a tela provisoria. Esc interrompe
+  a sequencia e silencia os efeitos.
+- Versao 2.7 validada no openMSX: dez casos SC5, sons gravados
+  separadamente em PSG e FM, pausa em 50/60 Hz, quatro configuracoes de
+  hardware e comparacao da abertura Disprosoft.
 
 LIMITACOES
 - SCC aparece como N/T: falta uma deteccao confiavel que nao perturbe
@@ -67,8 +74,8 @@ SUBTAREFAS
    medir custo de CPU, VDP, VRAM e mapper.
 5. Som: compor e testar trilha original FM+PSG, avaliar SCC opcional.
 6. Integracao: exercitar trajetos, regressao, hardware e distribuicao.
-7. Abertura: integrar futura animacao de tiros e musica quando o usuario
-   fornecer os detalhes; substituir a tela provisoria pelo jogo.
+7. Abertura: integrar musica quando o usuario fornecer os detalhes;
+   substituir a tela provisoria pelo jogo e avaliar uso seguro do SCC.
 
 HISTORICO
 2026-11-27 — Primeira conversa: escopo, requisitos, creditos, versoes e
@@ -96,3 +103,6 @@ progressivo, cor suave e melhorias nas letras e fontes. Preservado o
 formato original do logotipo; alterados a cor e a fonte dos textos.
 2026-11-27 — Credito do remake alterado para Wilson "Barney" Pilon e
 centralizado na abertura.
+2026-11-27 — Usuario solicitou rajada diagonal com marcas de vidro e som,
+remocao dos textos e pausa de dois segundos antes da tela provisoria.
+Escolheu adiar SCC devido ao risco da deteccao automatica em outros slots.
