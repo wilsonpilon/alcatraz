@@ -94,3 +94,5 @@ byte a byte e executada no openMSX; e a versao em ingles desse arquivo.
 2026-11-27 — Usuario pediu a foto visivel antes do logotipo, desenho
 progressivo, cor suave e melhorias nas letras e fontes. Preservado o
 formato original do logotipo; alterados a cor e a fonte dos textos.
+2026-11-27 — Credito do remake alterado para Wilson "Barney" Pilon e
+centralizado na abertura.

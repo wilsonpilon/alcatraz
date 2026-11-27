@@ -6,7 +6,7 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 2.5 — Frank Morris: desenho progressivo do título
+## 2.6 — Frank Morris: crédito do remake
 
 Pré-release: ainda não há jogo, mapa, parser nem música. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,

@@ -116,3 +116,6 @@ desenho progressivo, uma cor mais suave e, se possível, letras e fontes
 melhores. O logotipo mantém as formas originais reconhecíveis, agora em
 terracota com sombra escura; os textos usam outra fonte MSXgl. Esc também
 interrompe o desenho. A animação de tiros e a música continuam futuras.
+
+Na conversa seguinte, o crédito do remake foi alterado para Wilson "Barney"
+Pilon e centralizado na tela.

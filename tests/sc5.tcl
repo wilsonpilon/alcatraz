@@ -136,7 +136,7 @@ proc inspect {} {
 		set text_ok 1
 		foreach {x y text} {
 			41 20 {Programa de Wilson F. Martins}
-			47 30 {Remake por Wilson "B" Pilon}
+			32 30 {Remake por Wilson "Barney" Pilon}
 			77 94 {A FUGA IMPOSSIVEL}
 			47 184 {Tecle [ESPACO] para comecar}
 		} {

@@ -68,7 +68,7 @@ static bool show_title(void)
 	Print_SetBitmapFont(g_Font_MGL_Std1);
 	Print_SetMode(PRINT_MODE_BITMAP_TRANS);
 	title_text(41, 20, "Programa de Wilson F. Martins");
-	title_text(47, 30, "Remake por Wilson \"B\" Pilon");
+	title_text(32, 30, "Remake por Wilson \"Barney\" Pilon");
 	Draw_FillBox(72, 92, 184, 104, OPENING_BLACK, VDP_OP_IMP);
 	title_text(77, 94, "A FUGA IMPOSSIVEL");
 	Draw_FillBox(35, 181, 222, 195, OPENING_BLACK, VDP_OP_IMP);
