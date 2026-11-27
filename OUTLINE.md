@@ -14,8 +14,8 @@ confundir a documentação com o produto novo.
 Em San Quentin, a edição MSX2 combina ilustrações, texto e inventário em
 painéis; sua abertura tem trilha FM + PSG. Alcatraz será adaptado para
 salas interconectadas, em vez da visão superior do labirinto original.
-As regras e os quebra-cabeças serão estudados no BASIC de Alcatraz; o mapa
-de salas será definido a partir do material que o usuário ainda enviará.
+As regras e os quebra-cabeças são estudados no BASIC de Alcatraz; o mapa
+de salas parte da grade original e dos materiais enviados pelo usuário.
 
 ## Direção visual
 
@@ -63,8 +63,8 @@ o jogo; não existe jogo implementado ainda.
 
 1. **Fundação:** diagnóstico, build reproduzível, versões e testes em emulador.
 2. **Pesquisa:** inventariar salas, saídas, objetos, parser e condições;
-   separar fatos verificados de hipóteses e registrar procedência; aguardar
-   o mapa do usuário antes de definir a conversão para salas.
+   separar fatos verificados de hipóteses e registrar procedência; conferir
+   o comportamento das demais ações além do percurso de referência.
 3. **Motor:** estado, mapa, navegação, inventário, parser, ações e persistência;
    testes focados e comparação com o original.
 4. **Apresentação:** identidade visual, interface em painéis e cenas;
@@ -160,7 +160,27 @@ na inferior, mensagens e comando. O usuário enviará o mapa completo.
   até dois objetos, e flags controlam condições como luz e equipamentos.
   Preservar essas dependências exige estudar as ações e os pontos de
   passagem antes de agrupar posições em salas.
-- Próximo passo de pesquisa: confrontar o mapa a receber com o BASIC e
-  documentar, para cada sala e passagem, objetos, ações, bloqueios,
-  mudanças de estado e consequências. Não presumir quantidade de salas,
-  limite de inventário ou conexões definitivas antes dessa análise.
+- A pesquisa posterior confrontou os mapas recebidos com o BASIC e é
+  registrada abaixo; o remake ainda não implementa essas salas.
+
+### Mapa e levantamento do BASIC
+
+O usuário forneceu o roteiro ilustrado, o mapa e uma imagem colorida, e
+pediu uma sala por posição, inclusive trechos vazios de corredores, com
+objetos que possam ser deixados e encontrados novamente. O mapa de
+referência conserva as 140 posições da grade, inclusive a posição isolada
+da cadeira elétrica, e indica conexões direcionais, bloqueios e armadilhas.
+Os pontos numerados do roteiro são associados às salas sem inventar nomes
+para os corredores.
+
+- [MAPA.md](MAPA.md): desenho e tabela de salas e passagens iniciais.
+- [REFERENCIA_ORIGINAL.md](REFERENCIA_ORIGINAL.md): parser, 24 verbos,
+  35 substantivos, 55 despachos e fragmentos literais das mensagens.
+- [PERCURSO.md](PERCURSO.md): caminho de fuga por salas. O percurso foi
+  executado no openMSX com 273 eventos e chegou à vitória na versão BASIC
+  em inglês; isso não valida todas as regras nem implementa o remake.
+
+As referências são geradas da listagem portuguesa `docs\alcatraz.asc`;
+`docs\alcatraz.bas` contém a versão em inglês usada no teste em emulador.
+A limitação original de seis objetos, os efeitos locais sobre passagens e
+o descarte persistente foram registrados, não assumidos como já implementados.

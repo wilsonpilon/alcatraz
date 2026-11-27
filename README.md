@@ -8,7 +8,7 @@ do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
 ## 2.8 — Frank Morris: rajada com percussão FM
 
-Pré-release: ainda não há jogo, mapa, parser nem música. Após as verificações
+Pré-release: ainda não há jogo, mapa jogável, parser nem música. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
 mantém a imagem por cerca de 2,5 a 3 segundos e avança automaticamente para
 o diagnóstico em SCREEN 5. Exige MSX 2+, MSX-DOS 2, mapper
@@ -117,3 +117,17 @@ direitos sobre o logotipo. A biblioteca, suas fontes e ferramentas têm as
 licenças indicadas pelo MSXgl.
 Veja [OUTLINE.md](OUTLINE.md) para a visão e [resume.txt](resume.txt) para
 o registro de decisões, andamento e próximos passos.
+
+## Pesquisa e mapa de referência
+
+- [Mapa de salas](MAPA.md): 140 posições do BASIC, saídas direcionais,
+  condições e correspondência com o roteiro ilustrado.
+- [Referência do original](REFERENCIA_ORIGINAL.md): vocabulário, objetos,
+  despacho de ações e fragmentos literais de mensagens.
+- [Percurso de referência](PERCURSO.md): caminho de fuga validado na versão
+  BASIC em inglês, sem pressupor que o remake já esteja jogável.
+
+Os documentos são gerados por `python tools\mapa_alcatraz.py`. Para conferir
+os dados e a geração: `python -m unittest discover -s tests -p test_mapa_alcatraz.py`.
+Para reproduzir o percurso no BASIC original em inglês com openMSX:
+`python tests\run_original_route.py --openmsx caminho\openmsx.exe`.

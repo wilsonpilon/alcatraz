@@ -59,6 +59,12 @@ FEITO NA FUNDACAO
 - Estudo da interface e do motor MSX2 de San Quentin e comparacao inicial
   com movimentacao, objetos e parser do BASIC de Alcatraz. O layout e o
   mapa do remake ainda nao foram implementados.
+- MAPA.md: 140 posicoes com ligacoes direcionais, armadilhas e objetos;
+  REFERENCIA_ORIGINAL.md: verbos, substantivos, despachos e mensagens;
+  PERCURSO.md: roteiro de fuga por salas.
+- Validacao: seis testes da geracao e topologia; percurso de 273 eventos
+  chegou a vitoria no openMSX com o BASIC original em ingles. Isso nao
+  valida todos os quebra-cabecas nem implementa o jogo novo.
 
 LIMITACOES
 - Nao ha musica ou jogo implementados.
@@ -73,8 +79,8 @@ LIMITACOES
 SUBTAREFAS
 1. Fundacao: testar saida para DOS, cartuchos, compatibilidade e reproducao
    de builds em ambiente limpo.
-2. Pesquisa: aguardar o mapa do usuario; confronta-lo com o BASIC e registrar
-   salas, passagens, objetos, verbos, regras e dependencias, com procedencia.
+2. Pesquisa: aprofundar regras, condicoes e casos alternativos alem do
+   percurso validado; conferir divergencias entre materiais e listagens.
 3. Motor: estado, salas, navegacao, parser, inventario, acoes, testes e saves.
 4. Arte/interface: prototipar SCREEN 5 com cena e inventario na metade
    superior, mensagens e entrada na inferior; medir legibilidade, CPU,
@@ -122,3 +128,8 @@ acima, texto e comando abaixo. Enviara o mapa completo. Pesquisa inicial:
 San Quentin separa entrada, parser, motor e interface; Alcatraz usa codigos
 de passagem mutaveis, objetos por coordenada e comandos com ate dois objetos.
 Detalhes e medidas de referencia estao registrados em OUTLINE.md.
+2026-11-27 — Usuario forneceu mapa, roteiro e imagem colorida e solicitou
+uma sala por posicao do labirinto, inclusive corredores vazios, com itens
+que possam ser deixados e reencontrados. Gerados mapa, catalogo e percurso
+de referencia a partir da listagem portuguesa; validado um caminho ate a
+vitoria no BASIC ingles em openMSX. Falta implementar o motor e interface.
