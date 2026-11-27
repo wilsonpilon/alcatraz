@@ -59,7 +59,7 @@ promete compatibilidade com MSX1 ou MSX2. A RAM é total, não RAM livre
 garantida; a alocação real deverá ser verificada quando houver recursos.
 O diagnóstico atual não garante descobrir FM sem ROM de
 identificação. Dispositivos incompatíveis recebem indicação e não iniciam
-o jogo; apenas a primeira cela está implementada.
+o jogo; apenas as três primeiras posições estão implementadas.
 
 ## Segmentação proposta
 
@@ -78,6 +78,11 @@ o jogo; apenas a primeira cela está implementada.
 ## Conversas e decisões
 
 ### 2026-11-27
+
+O usuário pediu a sequência do guarda e a navegação por R078 e R077.
+Implementadas as duas posições, as grades, a chave, a comida e as ações
+do percurso inicial; objetos mantêm a sala em que foram deixados. Norte e
+sul de R077 apontam para salas futuras e informam que ainda não estão prontas.
 
 O usuário pediu iniciar o jogo pela cela: paredes de tijolos, chão azul,
 teto cinza escuro, inventário, comandos e saídas. R079 foi implementada

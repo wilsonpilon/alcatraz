@@ -79,9 +79,17 @@ FEITO NA FUNDACAO
   idioma, quatro configuracoes de hardware e dez casos da abertura.
   Na primeira tentativa da regressao SC5, uma gravacao FM contou nove
   disparos; na repeticao, todos os casos e gravacoes passaram.
+- Versao 4.1: cenas de R078 e R077, navegacao por tres posicoes, guarda,
+  comida, corda, chave e abertura das grades. Objetos deixados mantem a
+  posicao, mesmo ao visitar outra sala. Norte e sul de R077 ainda nao
+  permitem entrar nas salas seguintes.
+- Testes no openMSX: sequencia e retorno entre salas em portugues e ingles,
+  incluindo itens deixados, setas e saidas ainda indisponiveis. O percurso
+  portugues tambem passou com mapper de 4 MB. O teste de hardware passou a
+  conferir os resultados na VRAM, evitando leitura de banco incorreto.
 
 LIMITACOES
-- Apenas a primeira sala existe; nao ha fuga completa, salvamento ou musica.
+- Somente tres posicoes existem; nao ha fuga completa, salvamento ou musica.
 - Sem teste em hardware real; deteccao FM limitada a ROM MSX-MUSIC.
 - Referencias em docs foram incluidas temporariamente, com autorizacao
   informada pelo usuario; licencas serao normalizadas conforme necessario.
@@ -105,6 +113,8 @@ SUBTAREFAS
 7. Abertura: integrar musica quando o usuario fornecer os detalhes.
 
 HISTORICO
+2026-11-27 — Usuario solicitou sequencia do guarda e movimentacao entre
+R079, R078 e R077. Implementados os comandos iniciais em ambos os idiomas.
 2026-11-27 — Usuario solicitou iniciar o jogo pela cela inicial, com cena,
 inventario, entrada e indicacao de saidas e objetos. Implementada R079;
 as demais salas ficam para etapas futuras.

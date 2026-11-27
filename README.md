@@ -6,9 +6,9 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 3.1 — Al Capone: primeira cela jogável
+## 4.1 — Whitey Bulger: guarda e primeiras salas
 
-Pré-release: apenas a cela inicial está jogável. Após as verificações
+Pré-release: as posições R079, R078 e R077 estão jogáveis. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
 mantém a imagem por cerca de 2,5 a 3 segundos e avança automaticamente para
 a seleção de idioma em SCREEN 5. Use **esquerda/direita** para escolher
@@ -34,10 +34,11 @@ arquivo produz uma mensagem de erro.
 
 Na cela, a cena e o inventário ocupam a parte superior, com texto e comandos
 abaixo. Digite `OLHE`, `PEGUE LENCOL`, `RASGUE LENCOL`, `AMARRE TIRAS`
-ou consulte os demais comandos no [manual](MANUAL.md). N, S e L são paredes;
-O indica o corredor do guarda, ainda não implementado. As setas também
-funcionam; em inglês usam-se N, S, E, W. Apenas o lençol e suas
-transformações podem ser manipulados. Não há outras salas jogáveis,
+ou consulte os demais comandos no [manual](MANUAL.md). Oeste leva às grades
+do guarda; depois de obter a chave e abri-las, é possível chegar ao corredor
+R077. As setas também funcionam; em inglês usam-se N, S, E, W. Objetos
+deixados permanecem na sala correta. As saídas norte e sul de R077 são
+indicadas, mas ainda não são acessíveis. Não há outras salas jogáveis,
 salvamento, parser completo ou música.
 
 O mapper é medido pelo total de segmentos do mapper principal informado pelo
@@ -77,7 +78,8 @@ durante as animações, falhas de arquivo e bloqueio em máquina incompatível:
 `pwsh -File tests\run-sc5.ps1 -OpenMSX caminho\openmsx.exe`.
 Para testar a seleção, os dois idiomas, Esc, falha de imagem e ausência de FM:
 `pwsh -File tests\run-language.ps1 -OpenMSX caminho\openmsx.exe`.
-Para testar a cela, comandos, inventário, direções e saída em ambos os idiomas:
+Para testar as três posições, a sequência do guarda, objetos, direções e
+saída em ambos os idiomas:
 `pwsh -File tests\run-game.ps1 -OpenMSX caminho\openmsx.exe`.
 
 Para comparar a abertura com a listagem BASIC local em

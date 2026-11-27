@@ -20,13 +20,42 @@ void GameModel_Init(GameState* state)
 	u8 i;
 	for (i = 0; i < ITEM_COUNT; ++i)
 		state->items[i] = ITEM_ABSENT;
-	state->items[ITEM_SHEET] = ITEM_IN_ROOM;
+	state->room = ROOM_CELL;
+	state->items[ITEM_SHEET] = ROOM_CELL;
+	state->guard_gone = FALSE;
+	state->rope_cast = FALSE;
+	state->gate_open = FALSE;
+}
+
+static bool visible(const GameState* state, GameItem item)
+{
+	return state->items[item] == ITEM_CARRIED || state->items[item] == state->room;
+}
+
+static GameResult move(GameState* state, u8 direction)
+{
+	/* N, S, E, W: the values are room IDs from the original grid. */
+	static const u8 exits[3][4] = {
+		{ 63, 91, ROOM_GUARD, 0 },
+		{ 0, 0, ROOM_CELL, ROOM_CORRIDOR },
+		{ 0, 0, 0, ROOM_GUARD }
+	};
+	u8 destination = exits[state->room - ROOM_CORRIDOR][direction];
+	if (!destination)
+		return RESULT_WALL;
+	if (state->room == ROOM_GUARD && direction == 3 && !state->gate_open)
+		return RESULT_BARS_CLOSED;
+	if (destination < ROOM_CORRIDOR || destination > ROOM_CELL)
+		return RESULT_UNBUILT;
+	state->room = destination;
+	return RESULT_MOVED;
 }
 
 GameResult GameModel_Command(GameState* state, Language language, const c8* input)
 {
 	c8 command[31];
 	c8* object;
+	c8* target;
 	u8 i = 0;
 	u8 j = 0;
 	GameItem item;
@@ -48,15 +77,15 @@ GameResult GameModel_Command(GameState* state, Language language, const c8* inpu
 	command[j] = 0;
 	if (!j)
 		return RESULT_EMPTY;
-	if (matches(command, "N") || matches(command, "S") ||
-		equals(command, "L", "E", language) ||
-		equals(command, "NORTE", "NORTH", language) ||
-		equals(command, "SUL", "SOUTH", language) ||
-		equals(command, "LESTE", "EAST", language))
-		return RESULT_WALL;
+	if (matches(command, "N") || equals(command, "NORTE", "NORTH", language))
+		return move(state, 0);
+	if (matches(command, "S") || equals(command, "SUL", "SOUTH", language))
+		return move(state, 1);
+	if (equals(command, "L", "E", language) || equals(command, "LESTE", "EAST", language))
+		return move(state, 2);
 	if (equals(command, "O", "W", language) ||
 		equals(command, "OESTE", "WEST", language))
-		return RESULT_CORRIDOR;
+		return move(state, 3);
 	if (equals(command, "OLHE", "LOOK", language))
 		return RESULT_LOOK;
 	if (equals(command, "INVENTARIO", "INVENTORY", language))
@@ -68,8 +97,55 @@ GameResult GameModel_Command(GameState* state, Language language, const c8* inpu
 	if (!*object)
 		return RESULT_UNKNOWN;
 	*object++ = 0;
+	target = object;
+	while (*target && *target != ' ')
+		++target;
+	if (*target)
+		*target++ = 0;
+	else
+		target = 0;
+
+	if (target)
+	{
+		if (equals(command, "PECA", "ASK", language) &&
+			equals(object, "COMIDA", "FOOD", language) &&
+			equals(target, "GUARDA", "OFFICER", language))
+		{
+			if (state->room != ROOM_GUARD || state->guard_gone)
+				return RESULT_NO_GUARD;
+			state->guard_gone = TRUE;
+			state->items[ITEM_FOOD] = state->room;
+			return RESULT_GUARD_LEFT;
+		}
+		if (equals(command, "AMARRE", "TIE", language) &&
+			equals(object, "CORDA", "ROPE", language) &&
+			equals(target, "GRADES", "BARS", language))
+		{
+			if (state->room != ROOM_GUARD)
+				return RESULT_NO_BARS;
+			if (!visible(state, ITEM_ROPE))
+				return RESULT_NOT_VISIBLE;
+			return RESULT_ROPE_TIED;
+		}
+		if (equals(command, "ABRA", "OPEN", language) &&
+			equals(object, "GRADES", "BARS", language) &&
+			equals(target, "CHAVE", "KEYS", language))
+		{
+			if (state->room != ROOM_GUARD)
+				return RESULT_NO_BARS;
+			if (!visible(state, ITEM_KEY))
+				return RESULT_NOT_VISIBLE;
+			if (state->gate_open)
+				return RESULT_GATE_ALREADY;
+			state->gate_open = TRUE;
+			return RESULT_GATE_OPEN;
+		}
+		return RESULT_UNKNOWN;
+	}
 	if (equals(object, "CAMA", "BED", language))
 	{
+		if (state->room != ROOM_CELL)
+			return RESULT_NOT_VISIBLE;
 		if (equals(command, "EXAMINE", "EXAMINE", language))
 			return RESULT_EXAMINE_BED;
 		if (equals(command, "PEGUE", "TAKE", language))
@@ -82,6 +158,10 @@ GameResult GameModel_Command(GameState* state, Language language, const c8* inpu
 		item = ITEM_STRIPS;
 	else if (equals(object, "CORDA", "ROPE", language))
 		item = ITEM_ROPE;
+	else if (equals(object, "COMIDA", "FOOD", language))
+		item = ITEM_FOOD;
+	else if (equals(object, "CHAVE", "KEYS", language))
+		item = ITEM_KEY;
 	else
 		return RESULT_UNKNOWN;
 
@@ -89,10 +169,10 @@ GameResult GameModel_Command(GameState* state, Language language, const c8* inpu
 	{
 		if (state->items[item] != ITEM_CARRIED)
 			return RESULT_NOT_CARRIED;
-		state->items[item] = ITEM_IN_ROOM;
+		state->items[item] = state->room;
 		return RESULT_DROPPED;
 	}
-	if (state->items[item] == ITEM_ABSENT)
+	if (!visible(state, item))
 		return RESULT_NOT_VISIBLE;
 	if (equals(command, "PEGUE", "TAKE", language))
 	{
@@ -103,6 +183,21 @@ GameResult GameModel_Command(GameState* state, Language language, const c8* inpu
 	}
 	if (equals(command, "EXAMINE", "EXAMINE", language))
 		return RESULT_EXAMINE_ITEM;
+	if (item == ITEM_ROPE && equals(command, "JOGUE", "THROW", language))
+	{
+		if (state->room != ROOM_GUARD || !state->guard_gone)
+			return RESULT_NOTHING;
+		state->rope_cast = TRUE;
+		return RESULT_ROPE_HIT;
+	}
+	if (item == ITEM_ROPE && equals(command, "PUXE", "PULL", language))
+	{
+		if (state->room != ROOM_GUARD || !state->rope_cast ||
+			state->items[ITEM_KEY] != ITEM_ABSENT)
+			return RESULT_NOTHING;
+		state->items[ITEM_KEY] = ITEM_CARRIED;
+		return RESULT_KEY_FOUND;
+	}
 	if (item == ITEM_SHEET && (equals(command, "RASGUE", "TEAR", language) ||
 		equals(command, "CORTE", "CUT", language)))
 	{

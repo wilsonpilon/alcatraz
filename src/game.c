@@ -28,7 +28,7 @@ void Game_Run(Language language)
 		else if (key == GAME_INPUT_ENTER)
 		{
 			result = GameModel_Command(&state, language, input);
-			GameUI_Scene(&state);
+			GameUI_Scene(&state, language);
 			GameUI_Inventory(&state, language);
 			GameUI_Result(&state, language, result);
 			length = 0;
@@ -42,6 +42,8 @@ void Game_Run(Language language)
 				(language == LANGUAGE_ENGLISH ? "E" : "L") :
 				(language == LANGUAGE_ENGLISH ? "W" : "O");
 			result = GameModel_Command(&state, language, direction);
+			if (result == RESULT_MOVED)
+				GameUI_Scene(&state, language);
 			GameUI_Result(&state, language, result);
 		}
 		else if (key >= GAME_INPUT_CHARACTER && key <= 'Z')

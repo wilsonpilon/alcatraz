@@ -25,7 +25,7 @@ foreach ($case in @("pt", "en")) {
         "-ext", "ram2mb", "-diska", "`"$(Join-Path $work 'game.dsk')`"",
         "-script", "`"$(Join-Path $PSScriptRoot 'game.tcl')`"")
     $process = Start-Process $OpenMSX -ArgumentList $arguments -PassThru
-    if (!$process.WaitForExit(90000)) {
+    if (!$process.WaitForExit(120000)) {
         Stop-Process -Id $process.Id
         throw "openMSX excedeu o tempo no caso $case."
     }
