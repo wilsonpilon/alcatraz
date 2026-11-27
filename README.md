@@ -53,9 +53,9 @@ faz upload automático. `build.bat` altera `version.json` localmente.
 - **Marcelo / MarMSX**: análise detalhada das regras e implementação original.
 - **Guillaume “Aoineko” Blanchard**: biblioteca MSXgl e fonte usada no stub,
   distribuídas sob [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
-- Os demais autores das referências conservam seus direitos. A pasta local
-  `docs\` contém material de terceiros e não é publicada até que os direitos
-  de redistribuição sejam verificados.
+- A pasta [docs](docs/README.md) reúne temporariamente material de referência.
+  Seus autores conservam seus direitos; suas licenças serão normalizadas
+  conforme necessário, em contato com os autores.
 
 O código do projeto usa a licença [GPL-3.0](LICENSE); a biblioteca, suas
 fontes e ferramentas têm as licenças indicadas pelo MSXgl.

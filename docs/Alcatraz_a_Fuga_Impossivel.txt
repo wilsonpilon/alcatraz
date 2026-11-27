@@ -1,0 +1,86 @@
+Alcatraz -A Fuga Impossivel
+Walkthrough by Alex Dijkstra for the MSX
+
+Some genral notes:
+-to walk around you have to use a joystick or the cursorkeys.
+-to look around press END-button
+-to look inventory press ESC-button
+
+PEGUE LENCOL
+RASGUE LENCOL (You rip the sheet in strips)
+AMARRE TIRAS (using the strips you make a rope)
+left
+PECA COMIDA GUARDA (the guard brings you the food and leaves the key behind)
+PEGUE COMIDA
+AMARRE CORDA GRADES
+JOGUE CORDA
+PUXE CORDA (ewith the rope you manage to obtain the key)
+ABRA GRADES CHAVE
+left, 2x up, 2x right, 2x up
+PEGUE SERRA
+3x down
+ABRA GRADES CHAVE
+SOLTE CHAVE
+2x left
+PEGUE COBERTOR
+DE COMIDA PRESIDIARIO (the convict gives you some money in return)
+2x right, up, 3x left, 3x down, right
+DE DINHEIRO GUARDA (the guard accepts the money and leaves)
+down, 2x left
+PEGUE LANTERNA
+2x right, up, left, 4x up
+COLOQUE SERRA TOMADA 
+LIGUE SERRA
+CORTE PORTA CERRA (using the electric saw you open the door)
+SOLTE SERRA
+up, right, down, right, up
+PEGUE PILHA
+PEGUE BARALHO
+down, left, up, left, 2x down, 3x right,  down
+COLOQUE PILHA POCO LANTERNA
+LIGUE LANTERNA (with the batteries inside you can turn on the lamp)
+3x down
+PEGUE FOSFOROS
+4x up, 3x left, 3x down, right, down, right, 2x down, 3x left
+SOLTE BARALHO
+PEGUE JORNAL
+2x left, up
+COLOQUE JORNAL PORTA
+QUEIME JORNAL FOSFOROS (the burning newspaper under the door destroys it)
+SOLTE FOSFOROS
+TIRE PILHA POCO LANTERNA
+SOLTE LANTERNA
+down , 2x right
+PEGUE BARALHO
+2x left, 2x up
+COLOQUE COBERTOR FOGO (the blanket extinguishes the fire)
+left, 2x down, left, 4x up, left, 4x down
+PEGUE AGUA
+4x up, right, 4x down, right, 2x up, 2x right, down, 3x right
+PEGUE ESPELHO
+3x left, up, left, 4x up, right, 3x down, right, 3x up
+COLOQUE AGUA ALARME
+3x down, left, 3x up, 2x left, down, left, 4x up, left, 4x down
+PEGUE FITA
+4x up, right, 4x down, right, up, 2x right, 3x down, right, 6x up
+COLOQUE ESPELHO LUZ (with the mirror you destroy the alarm)
+3x left, down, 2x right, down, 2x left
+PEGUE GRAVADOR
+2x right, up, 2x left, up, 8x right, 8x down, left, down
+COLOQUE PILHA GRAVADOR
+COLOQUE FITA GRAVADOR
+LIGUE GRAVADOR (you play the cassette and the dogs fall asleep)
+2x right, 2x up, 2x right, up, left, 5x up, left, up
+DE BARALHO CARCEREIRO 
+2x right, 5x down
+COLOQUE CORDA POCO
+ENTRE POCO
+
+You escaped from Alcatraz through a secret passage!!
+
+Final note: 
+-you can remove the earth in the lower right corner using the spade (pa) by typing 
+PEGUE PA
+CAVE TERRA PA
+behind it you will find some more money, but you don't need it to finish the game.
+

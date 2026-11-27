@@ -54,7 +54,6 @@ dkms.conf
 # debug information files
 *.dwo
 
-# Local reference material and dependencies are not redistributed.
-/docs/
+# Local dependencies and build output.
 /MSXgl/
 /out/

@@ -74,5 +74,10 @@ preferida confirmada: `wilsonpilon`.
 
 San Quentin foi encontrado em `E:\sanquentin` e examinado: SCREEN 5,
 três painéis e FM + PSG são boas referências. Propõe-se SCREEN 5 para este
-projeto. Os documentos originais ficam locais até verificar redistribuição;
-nenhuma referência foi removida.
+projeto. Inicialmente, os documentos de referência ficaram locais.
+
+Na conversa seguinte, foi informada a autorização da Aleph para uso dos
+livros e confirmada a permissão para publicar os materiais de terceiros.
+As referências foram incluídas temporariamente em [docs](docs/README.md),
+sem alteração; suas licenças serão normalizadas conforme necessário, em
+contato com os autores.

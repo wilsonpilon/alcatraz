@@ -28,8 +28,9 @@ LIMITACOES
 - SCC aparece como N/T: falta uma deteccao confiavel que nao perturbe
   outros cartuchos. Nao ha musica ou jogo implementados.
 - Sem teste em hardware real; deteccao FM limitada a ROM MSX-MUSIC.
-- Referencias em docs permanecem locais, sem redistribuicao ate verificacao
-  de direitos. MSXgl deve ser instalado separadamente.
+- Referencias em docs foram incluidas temporariamente, com autorizacao
+  informada pelo usuario; licencas serao normalizadas conforme necessario.
+  MSXgl deve ser instalado separadamente.
 - A contagem e do mapper principal total, nao de segmentos livres.
 
 SUBTAREFAS
@@ -47,3 +48,7 @@ HISTORICO
 2026-11-27 — Primeira conversa: escopo, requisitos, creditos, versoes e
 primeiro marco Robert Stroud. Preferencia Copilot confirmada: wilsonpilon.
 Documentos de referencia nao foram removidos.
+2026-11-27 — Usuario informou autorizacao da Aleph para uso livre dos livros
+e confirmou permissao de publicar todos os materiais de referencia. Analise
+de Marcelo Silveira e usada apenas para referencia e depuracao; licencas
+serao normalizadas conforme necessario em contato com os autores.
