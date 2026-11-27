@@ -10,6 +10,10 @@ foreach name {mapper psg fm} {
 	set addresses($name) $address
 }
 after time 5 {type_via_keybuf "\r"}
+after time 27 {
+	keymatrixdown 7 0x80
+	after time 0.3 {keymatrixup 7 0x80}
+}
 after time 35 {
 	set ::throttle on
 	after time 0.3 capture

@@ -24,15 +24,15 @@ static void text(u16 x, u16 y, const c8* message)
 	Print_DrawText(message);
 }
 
-static void row(u16 y, const c8* label, bool present)
+static void row(u16 y, const c8* label, bool present, Language language)
 {
 	text(32, y, label);
 	Print_SetColor(present ? WHITE : RED, NAVY);
-	text(181, y, present ? "OK" : "FALHA");
+	text(181, y, present ? "OK" : (language == LANGUAGE_ENGLISH ? "FAIL" : "FALHA"));
 	Print_SetColor(WHITE, NAVY);
 }
 
-bool Diagnostic_Run(void)
+bool Diagnostic_Run(Language language)
 {
 	if (DOSMapper_Init())
 	{
@@ -56,19 +56,25 @@ bool Diagnostic_Run(void)
 	Draw_FillBox(232, 20, 234, 38, WHITE, VDP_OP_IMP);
 	Draw_FillBox(16, 157, 239, 172, BLUE, VDP_OP_IMP);
 	Print_SetBitmapFont(g_Font_MGL_Sample6);
+	Print_SetMode(PRINT_MODE_BITMAP);
 	Print_SetColor(WHITE, RED);
 	text(87, 21, "ALCATRAZ");
-	text(54, 31, "A FUGA IMPOSSIVEL");
+	text(language == LANGUAGE_ENGLISH ? 64 : 54, 31,
+		language == LANGUAGE_ENGLISH ? "THE IMPOSSIBLE ESCAPE" : "A FUGA IMPOSSIVEL");
 	Print_SetColor(WHITE, NAVY);
-	text(32, 52, "VERIFICACAO DO SISTEMA");
-	row(68, "MSX 2+", TRUE);
-	row(79, "MSX-DOS 2", TRUE);
-	row(90, "MAPPER 2048 KB", g_mapper_ok);
-	row(101, "PSG", g_psg_ok);
-	row(112, "FM / MSX-MUSIC", g_fm_ok);
-	text(32, 142, g_mapper_ok && g_psg_ok && g_fm_ok ? "SISTEMA COMPATIVEL" : "REQUISITOS NAO ATENDIDOS");
+	text(32, 52, language == LANGUAGE_ENGLISH ? "SYSTEM CHECK" : "VERIFICACAO DO SISTEMA");
+	row(68, "MSX 2+", TRUE, language);
+	row(79, "MSX-DOS 2", TRUE, language);
+	row(90, "MAPPER 2048 KB", g_mapper_ok, language);
+	row(101, "PSG", g_psg_ok, language);
+	row(112, "FM / MSX-MUSIC", g_fm_ok, language);
+	text(32, 142, g_mapper_ok && g_psg_ok && g_fm_ok
+		? (language == LANGUAGE_ENGLISH ? "SYSTEM COMPATIBLE" : "SISTEMA COMPATIVEL")
+		: (language == LANGUAGE_ENGLISH ? "REQUIREMENTS NOT MET" : "REQUISITOS NAO ATENDIDOS"));
 	Print_SetColor(WHITE, BLUE);
-	text(20, 161, "ENTER: ABRIR  ESC: SAIR  V" ALCATRAZ_VERSION);
+	text(20, 161, language == LANGUAGE_ENGLISH
+		? "ENTER: OPEN  ESC: EXIT  V" ALCATRAZ_VERSION
+		: "ENTER: ABRIR  ESC: SAIR  V" ALCATRAZ_VERSION);
 	while (!Keyboard_IsKeyPressed(KEY_ESC) &&
 		!(g_mapper_ok && g_psg_ok && g_fm_ok && Keyboard_IsKeyPressed(KEY_RETURN)))
 		Halt();

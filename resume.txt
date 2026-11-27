@@ -65,6 +65,9 @@ FEITO NA FUNDACAO
 - Validacao: seis testes da geracao e topologia; percurso de 273 eventos
   chegou a vitoria no openMSX com o BASIC original em ingles. Isso nao
   valida todos os quebra-cabecas nem implementa o jogo novo.
+- Versao 2.10: selecao com bandeiras apos Disprosoft, setas e Enter;
+  diagnostico, titulo, erro SC5 e tela provisoria em portugues ou ingles.
+  Cinco casos de idioma passaram no openMSX, incluindo erros e Esc.
 
 LIMITACOES
 - Nao ha musica ou jogo implementados.
@@ -81,7 +84,8 @@ SUBTAREFAS
    de builds em ambiente limpo.
 2. Pesquisa: aprofundar regras, condicoes e casos alternativos alem do
    percurso validado; conferir divergencias entre materiais e listagens.
-3. Motor: estado, salas, navegacao, parser, inventario, acoes, testes e saves.
+3. Motor: estado, salas, navegacao, parser bilingue, inventario, acoes,
+   mensagens, testes e saves.
 4. Arte/interface: prototipar SCREEN 5 com cena e inventario na metade
    superior, mensagens e entrada na inferior; medir legibilidade, CPU,
    VDP, VRAM e mapper.
@@ -133,3 +137,7 @@ uma sala por posicao do labirinto, inclusive corredores vazios, com itens
 que possam ser deixados e reencontrados. Gerados mapa, catalogo e percurso
 de referencia a partir da listagem portuguesa; validado um caminho ate a
 vitoria no BASIC ingles em openMSX. Falta implementar o motor e interface.
+2026-11-27 — Usuario pediu versoes em portugues e ingles, escolhidas por
+uma tela de bandeiras apos Disprosoft. Implementada a selecao e traduzidas
+as telas existentes. As mensagens de verificacao anteriores a escolha
+continuam em portugues; motor e parser bilingue ainda precisam ser feitos.

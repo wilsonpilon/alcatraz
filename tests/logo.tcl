@@ -28,9 +28,9 @@ proc find_logo {} {
 proc check_pause {} {
 	set ::held [expr {([debug read {VDP regs} 0] & 14) == 2 &&
 		([debug read {VDP regs} 1] & 64) != 0}]
-	after time 7 check_diagnostic
+	after time 7 check_selection
 }
-proc check_diagnostic {} {
+proc check_selection {} {
 	set file [open [file join $::output logo.log] w]
 	puts $file [expr {$::held && ([debug read {VDP regs} 0] & 14) == 6 ? "PASS" : "FAIL"}]
 	close $file

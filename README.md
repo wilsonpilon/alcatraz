@@ -6,24 +6,30 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 2.8 — Frank Morris: rajada com percussão FM
+## 2.10 — Frank Morris: seleção de idioma
 
 Pré-release: ainda não há jogo, mapa jogável, parser nem música. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
 mantém a imagem por cerca de 2,5 a 3 segundos e avança automaticamente para
-o diagnóstico em SCREEN 5. Exige MSX 2+, MSX-DOS 2, mapper
-principal de pelo menos 2048 KB, PSG e MSX-MUSIC/FM. Em sistemas
+a seleção de idioma em SCREEN 5. Use **esquerda/direita** para escolher
+português ou inglês e **Enter** para confirmar; **Esc** retorna ao DOS.
+O diagnóstico, a tela de título e as mensagens posteriores usam o idioma
+escolhido. Em seguida vem o diagnóstico; o programa exige MSX 2+,
+MSX-DOS 2, mapper principal de pelo menos 2048 KB, PSG e MSX-MUSIC/FM. Em sistemas
 anteriores a MSX 2+ ou DOS 2, a mensagem é exibida em texto.
 
 Em uma máquina compatível, pressione **Enter** no diagnóstico para abrir a
 tela de título: a imagem aparece primeiro e o logotipo original é desenhado
 progressivamente, letra por letra, seguido dos créditos e da
-instrução **Tecle [ESPACO] para comecar**. **Espaço** remove créditos e
+instrução **Tecle [ESPACO] para comecar** ou **Press [SPACE] to start**.
+**Espaço** remove créditos e
 instrução, mostra dez impactos diagonais de vidro com ruído PSG e camadas
 de percussão FM e, após
 cerca de dois segundos, avança para uma tela provisória que informa que o
 jogo está em desenvolvimento. **Esc** retorna ao DOS, inclusive durante a
-animação. A música ainda não foi implementada.
+animação. O jogo e a música ainda não foram implementados; as futuras
+mensagens e comandos de jogo deverão acompanhar o idioma escolhido.
+As mensagens de DOS/modelo exibidas antes da seleção permanecem em português.
 A imagem é carregada de
 `ALCATRAZ.SC5` no diretório atual do MSX-DOS. Ausência ou corrupção do
 arquivo produz uma mensagem de erro.
@@ -63,6 +69,8 @@ Para testar imagem antes do desenho, progressão do logotipo, créditos,
 impactos, gravações PSG e FM, pausa em 50 e 60 Hz, espaço, saída inclusive
 durante as animações, falhas de arquivo e bloqueio em máquina incompatível:
 `pwsh -File tests\run-sc5.ps1 -OpenMSX caminho\openmsx.exe`.
+Para testar a seleção, os dois idiomas, Esc, falha de imagem e ausência de FM:
+`pwsh -File tests\run-language.ps1 -OpenMSX caminho\openmsx.exe`.
 
 Para comparar a abertura com a listagem BASIC local em
 `docs\disprosoft.bas`, execute
@@ -75,7 +83,8 @@ coincidem. As capturas e discos de teste ficam em `out\logo-test\`.
 O código está dividido em inicialização (`src\main.c`), diagnóstico
 (`src\diagnostic.c`), abertura Disprosoft (`src\disprosoft.c`), título
 (`src\title_logo.c`), imagem SC5 (`src\opening.c`) e impactos com som
-(`src\opening_shots.c`). A abertura Disprosoft
+(`src\opening_shots.c`); `src\language.c` concentra a seleção de idioma.
+A abertura Disprosoft
 desenha primitivas em SCREEN 2; os contornos de arcos são uma aproximação
 inteira ao BASIC. O logotipo do título usa as coordenadas da listagem
 `docs\abertura.asc`, preservando o desenho estilizado; os textos da abertura

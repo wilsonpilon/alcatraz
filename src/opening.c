@@ -62,25 +62,30 @@ static void title_text(u16 x, u16 y, const c8* message)
 	title_line(x, y, message);
 }
 
-static bool show_title(void)
+static bool show_title(Language language)
 {
 	if (!TitleLogo_Draw(OPENING_BLACK, OPENING_ACCENT))
 		return FALSE;
 	Print_SetBitmapFont(g_Font_MGL_Std1);
 	Print_SetMode(PRINT_MODE_BITMAP_TRANS);
-	title_text(41, 20, "Programa de Wilson F. Martins");
-	title_text(32, 30, "Remake por Wilson \"Barney\" Pilon");
-	Draw_FillBox(72, 92, 184, 104, OPENING_BLACK, VDP_OP_IMP);
-	title_text(77, 94, "A FUGA IMPOSSIVEL");
+	title_text(language == LANGUAGE_ENGLISH ? 44 : 41, 20,
+		language == LANGUAGE_ENGLISH ? "Program by Wilson F. Martins" : "Programa de Wilson F. Martins");
+	title_text(language == LANGUAGE_ENGLISH ? 35 : 32, 30,
+		language == LANGUAGE_ENGLISH ? "Remake by Wilson \"Barney\" Pilon" : "Remake por Wilson \"Barney\" Pilon");
+	Draw_FillBox(language == LANGUAGE_ENGLISH ? 60 : 72, 92,
+		language == LANGUAGE_ENGLISH ? 196 : 184, 104, OPENING_BLACK, VDP_OP_IMP);
+	title_text(language == LANGUAGE_ENGLISH ? 65 : 77, 94,
+		language == LANGUAGE_ENGLISH ? "THE IMPOSSIBLE ESCAPE" : "A FUGA IMPOSSIVEL");
 	Draw_FillBox(35, 181, 222, 195, OPENING_BLACK, VDP_OP_IMP);
 	Draw_LineH(35, 222, 181, OPENING_ACCENT, VDP_OP_IMP);
 	Draw_LineH(35, 222, 195, OPENING_ACCENT, VDP_OP_IMP);
-	title_text(47, 184, "Tecle [ESPACO] para comecar");
+	title_text(language == LANGUAGE_ENGLISH ? 62 : 47, 184,
+		language == LANGUAGE_ENGLISH ? "Press [SPACE] to start" : "Tecle [ESPACO] para comecar");
 	VDP_CommandWait();
 	return TRUE;
 }
 
-static void show_unfinished_game(void)
+static void show_unfinished_game(Language language)
 {
 	VDP_EnableDisplay(FALSE);
 	VDP_SetPalette(g_diagnostic_palette);
@@ -88,17 +93,17 @@ static void show_unfinished_game(void)
 	Print_SetBitmapFont(g_Font_MGL_Sample6);
 	Print_SetMode(PRINT_MODE_BITMAP);
 	Print_SetColor(4, 0);
-	Print_SetPosition(56, 90);
-	Print_DrawText("JOGO EM DESENVOLVIMENTO");
+	Print_SetPosition(language == LANGUAGE_ENGLISH ? 70 : 56, 90);
+	Print_DrawText(language == LANGUAGE_ENGLISH ? "GAME IN DEVELOPMENT" : "JOGO EM DESENVOLVIMENTO");
 	Print_SetPosition(100, 106);
-	Print_DrawText("ESC: SAIR");
+	Print_DrawText(language == LANGUAGE_ENGLISH ? "ESC: EXIT" : "ESC: SAIR");
 	VDP_CommandWait();
 	VDP_EnableDisplay(TRUE);
 	while (!Keyboard_IsKeyPressed(KEY_ESC))
 		Halt();
 }
 
-u8 Opening_Show(void)
+u8 Opening_Show(Language language)
 {
 	VDP_EnableDisplay(FALSE);
 	if (!LoadSC5("ALCATRAZ.SC5"))
@@ -107,9 +112,9 @@ u8 Opening_Show(void)
 		VDP_CommandHMMV(0, 0, 256, 212, 0x00);
 		Print_SetColor(4, 0);
 		Print_SetPosition(20, 80);
-		Print_DrawText("ERRO AO LER ALCATRAZ.SC5");
+		Print_DrawText(language == LANGUAGE_ENGLISH ? "ERROR READING ALCATRAZ.SC5" : "ERRO AO LER ALCATRAZ.SC5");
 		Print_SetPosition(20, 96);
-		Print_DrawText("ESC: SAIR");
+		Print_DrawText(language == LANGUAGE_ENGLISH ? "ESC: EXIT" : "ESC: SAIR");
 		VDP_EnableDisplay(TRUE);
 		while (!Keyboard_IsKeyPressed(KEY_ESC))
 			Halt();
@@ -121,7 +126,7 @@ u8 Opening_Show(void)
 	VDP_CommandHMMM(0, 181, 0, 437, 256, 15);
 	VDP_CommandWait();
 	VDP_EnableDisplay(TRUE);
-	if (!show_title())
+	if (!show_title(language))
 		return 0;
 	while (Keyboard_IsKeyPressed(KEY_SPACE) && !Keyboard_IsKeyPressed(KEY_ESC))
 		Halt();
@@ -133,6 +138,6 @@ u8 Opening_Show(void)
 	VDP_CommandHMMM(0, 437, 0, 181, 256, 15);
 	VDP_CommandWait();
 	if (OpeningShots_Play())
-		show_unfinished_game();
+		show_unfinished_game(language);
 	return 0;
 }

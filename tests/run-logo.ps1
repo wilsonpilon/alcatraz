@@ -48,7 +48,7 @@ foreach ($case in @("basic", "logo")) {
     }
 }
 if ((Get-Content (Join-Path $work "logo.log") -Raw).Trim() -ne "PASS") {
-    throw "A abertura nao avancou para o diagnostico."
+    throw "A abertura nao avancou para a selecao de idioma."
 }
 $basicPalette = [IO.File]::ReadAllBytes((Join-Path $work "basic.palette"))
 $logoPalette = [IO.File]::ReadAllBytes((Join-Path $work "logo.palette"))
@@ -69,4 +69,4 @@ for ($y = 0; $y -lt 192; ++$y) {
     }
 }
 if ($different -gt 19) { throw "A tela difere da referencia em $different pixels (limite: 19)." }
-Write-Output "Abertura: PASS, $different pixels diferentes em 49152; diagnostico: PASS"
+Write-Output "Abertura: PASS, $different pixels diferentes em 49152; selecao de idioma: PASS"

@@ -40,7 +40,9 @@ VRAM devem ser validadas antes de serem fixadas.
 A abertura Disprosoft precede o diagnóstico, em SCREEN 2, em homenagem à
 apresentação da listagem BASIC fornecida. A tradução desenha primitivas em C;
 os arcos usam uma aproximação inteira e não são idênticos pixel a pixel.
-O modo principal continua sendo SCREEN 5.
+Após ela, uma tela SCREEN 5 com bandeiras permite escolher português ou
+inglês; o diagnóstico e as telas seguintes respeitam a escolha. A intenção
+é que o jogo futuro também ofereça os dois idiomas.
 
 ## Som e narrativa
 
@@ -184,3 +186,9 @@ As referências são geradas da listagem portuguesa `docs\alcatraz.asc`;
 `docs\alcatraz.bas` contém a versão em inglês usada no teste em emulador.
 A limitação original de seis objetos, os efeitos locais sobre passagens e
 o descarte persistente foram registrados, não assumidos como já implementados.
+
+Na conversa seguinte, o usuário pediu as duas línguas e uma escolha com
+bandeiras após a abertura Disprosoft. A seleção usa setas e Enter, com Esc
+para sair; diagnóstico, título, erros de imagem e tela provisória foram
+traduzidos. Mensagens anteriores à seleção continuam em português.
+O jogo e seu parser bilíngue permanecem pendentes.

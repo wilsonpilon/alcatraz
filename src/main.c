@@ -2,11 +2,13 @@
 #include "dos.h"
 #include "diagnostic.h"
 #include "disprosoft.h"
+#include "language.h"
 #include "opening.h"
 
 void main(void)
 {
 	DOS_Version version = { 0, 0 };
+	Language language;
 
 	if (DOS_GetVersion(&version) < 2 || (version.Kernel >> 8) < 2)
 	{
@@ -27,7 +29,12 @@ void main(void)
 		DOS_Exit(1);
 		return;
 	}
-	if (!Diagnostic_Run())
+	if (!Language_Select(&language))
+	{
+		BIOS_Exit(0);
 		return;
-	BIOS_Exit(Opening_Show());
+	}
+	if (!Diagnostic_Run(language))
+		return;
+	BIOS_Exit(Opening_Show(language));
 }

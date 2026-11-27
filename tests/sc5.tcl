@@ -85,6 +85,10 @@ proc check_animation_exit {} {
 	exit
 }
 after time 5 {type_via_keybuf "\r"}
+after time 27 {
+	keymatrixdown 7 0x80
+	after time 0.3 {keymatrixup 7 0x80}
+}
 after time 35 {
 	set ::diagnostic [debug read_block VRAM 0 27136]
 	keymatrixdown 7 0x80
