@@ -1,0 +1,49 @@
+ALCATRAZ — REGISTRO VIVO
+Atualizado: 2026-11-27
+
+CONVERSA E OBJETIVO
+Recriar o adventure MSX-BASIC de Wilson Fazzio Martins, com nova arte,
+ambientes, mapa e inventario graficos, inspirados na apresentacao de San
+Quentin. Marcelo / MarMSX documentou a implementacao; Aoineko criou MSXgl.
+Paleta vermelha, azul, branca e preta; musica original possivelmente blues
+triste ou heavy metal. A epoca da historia permanece em aberto.
+
+REQUISITOS
+MSX 2+ ou superior; MSX-DOS 2; mapper principal de pelo menos 2048 KB;
+PSG; MSX-MUSIC/FM obrigatorio; SCC opcional. Escolha inicial: SCREEN 5.
+Versao X.Y: Y aumenta em cada build oficial bem-sucedido; novo marco X
+inicia em Y=1. Cada marco recebe nome de preso de Alcatraz.
+
+FEITO NA FUNDACAO
+- Inspecao do original e de San Quentin em E:\sanquentin.
+- Stub MSX-DOS 2, tela grafica de diagnostico e verificacoes de versao de
+  maquina, DOS, tamanho do mapper principal, PSG e ROM MSX-MUSIC.
+- Build SDCC/MSXgl e contador de compilacoes; documentacao inicial.
+- O build com a revisao publica MSXgl 1cef53f497796635db4e09feeb26c0da3199f6ab
+  produziu o mesmo SHA-256 do build local.
+- Emulador: 2 MB e 4 MB aceitos; 1 MB e ausencia de FM indicados como
+  falha; MSX2 e DOS1 rejeitados com mensagem textual.
+
+LIMITACOES
+- SCC aparece como N/T: falta uma deteccao confiavel que nao perturbe
+  outros cartuchos. Nao ha musica ou jogo implementados.
+- Sem teste em hardware real; deteccao FM limitada a ROM MSX-MUSIC.
+- Referencias em docs permanecem locais, sem redistribuicao ate verificacao
+  de direitos. MSXgl deve ser instalado separadamente.
+- A contagem e do mapper principal total, nao de segmentos livres.
+
+SUBTAREFAS
+1. Fundacao: detectar SCC sem efeitos colaterais; testar saida para DOS,
+   cartuchos, compatibilidade e reproducao de builds em ambiente limpo.
+2. Pesquisa: registrar mapa, objetos, verbos, regras e dependencias; comparar
+   as fontes com as analises e manter autoria e procedencia.
+3. Motor: estado, salas, navegacao, parser, inventario, acoes, testes e saves.
+4. Arte/interface: prototipar SCREEN 5, paines, cenas, mapa e legibilidade;
+   medir custo de CPU, VDP, VRAM e mapper.
+5. Som: compor e testar trilha original FM+PSG, avaliar SCC opcional.
+6. Integracao: exercitar trajetos, regressao, hardware e distribuicao.
+
+HISTORICO
+2026-11-27 — Primeira conversa: escopo, requisitos, creditos, versoes e
+primeiro marco Robert Stroud. Preferencia Copilot confirmada: wilsonpilon.
+Documentos de referencia nao foram removidos.

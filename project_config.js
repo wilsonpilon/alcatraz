@@ -1,0 +1,9 @@
+ProjName = "alcatraz";
+ProjModules = [ "src/main" ];
+LibModules = [ "system", "bios", "vdp", "draw", "print", "input", "memory", "dos", "dos_mapper", "psg", "msx-music" ];
+Machine = "2";
+Target = "DOS2";
+CheckVersion = false;
+DoRun = false;
+DoDeploy = false;
+Optim = "Size";
