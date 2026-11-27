@@ -6,6 +6,7 @@
 #include "psg.h"
 #include "font/font_mgl_sample6.h"
 #include "../out/build_version.h"
+#include "../out/opening_palette.h"
 
 enum { BLACK, NAVY, BLUE, RED, WHITE, GREY };
 
@@ -18,6 +19,37 @@ static const u8 palette[32] = {
 u8 g_mapper_ok;
 u8 g_psg_ok;
 u8 g_fm_ok;
+static u8 g_Buffer[1024];
+
+bool LoadSC5(const c8* filename)
+{
+	u8 handle = DOS_FOpen(filename, O_RDONLY);
+	u16 vramAddr = 0;
+	u16 remaining = 27136;
+	bool success = FALSE;
+
+	if (handle == 0xFF)
+		return FALSE;
+	if (DOS_FRead(handle, g_Buffer, 7) != 7 ||
+		g_Buffer[0] != 0xFE || g_Buffer[1] != 0 || g_Buffer[2] != 0 ||
+		((u16)g_Buffer[3] | ((u16)g_Buffer[4] << 8)) < 27135)
+		goto done;
+
+	while (remaining)
+	{
+		u16 count = remaining > sizeof(g_Buffer) ? sizeof(g_Buffer) : remaining;
+		if (DOS_FRead(handle, g_Buffer, count) != count)
+			goto done;
+		VDP_WriteVRAM_128K(g_Buffer, vramAddr, 0, count);
+		vramAddr += count;
+		remaining -= count;
+	}
+	success = TRUE;
+done:
+	if (DOS_FClose(handle) != DOS_ERR_NONE)
+		success = FALSE;
+	return success;
+}
 
 static void text(u16 x, u16 y, const c8* message)
 {
@@ -87,8 +119,34 @@ void main(void)
 	text(181, 123, "N/T");
 	text(32, 142, g_mapper_ok && g_psg_ok && g_fm_ok ? "SISTEMA COMPATIVEL" : "REQUISITOS NAO ATENDIDOS");
 	Print_SetColor(WHITE, BLUE);
-	text(33, 161, "V" ALCATRAZ_VERSION "  -  ESC: SAIR");
+	text(20, 161, "ENTER: ABRIR  ESC: SAIR  V" ALCATRAZ_VERSION);
+	while (!Keyboard_IsKeyPressed(KEY_ESC) &&
+		!(g_mapper_ok && g_psg_ok && g_fm_ok && Keyboard_IsKeyPressed(KEY_RETURN)))
+		Halt();
+	if (Keyboard_IsKeyPressed(KEY_ESC))
+	{
+		BIOS_Exit(g_mapper_ok && g_psg_ok && g_fm_ok ? 0 : 1);
+		return;
+	}
+	while (Keyboard_IsKeyPressed(KEY_RETURN))
+		Halt();
+	VDP_EnableDisplay(FALSE);
+	if (!LoadSC5("ALCATRAZ.SC5"))
+	{
+		VDP_SetPalette(palette);
+		VDP_CommandHMMV(0, 0, 256, 212, 0x00);
+		Print_SetColor(WHITE, BLACK);
+		text(20, 80, "ERRO AO LER ALCATRAZ.SC5");
+		text(20, 96, "ESC: SAIR");
+		VDP_EnableDisplay(TRUE);
+		while (!Keyboard_IsKeyPressed(KEY_ESC))
+			Halt();
+		BIOS_Exit(1);
+		return;
+	}
+	VDP_SetPalette(g_opening_palette);
+	VDP_EnableDisplay(TRUE);
 	while (!Keyboard_IsKeyPressed(KEY_ESC))
 		Halt();
-	BIOS_Exit(g_mapper_ok && g_psg_ok && g_fm_ok ? 0 : 1);
+	BIOS_Exit(0);
 }

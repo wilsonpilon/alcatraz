@@ -28,7 +28,8 @@ prioritária. A tela atual é apenas um diagnóstico, não o layout final.
 Paleta: preto e azuis escuros para profundidade, branco para informação e
 vermelho como acento dramático. Desenvolver arte original, coesa e legível
 em 256 pixels; avaliar uso de páginas de VRAM e atualizações parciais.
-O modo suporta até 212 linhas, mas a interface final e a necessidade de
+Uma imagem experimental abre após o diagnóstico. O modo suporta até 212
+linhas, mas a interface final e a necessidade de
 VRAM devem ser validadas antes de serem fixadas.
 
 ## Som e narrativa
@@ -81,3 +82,7 @@ livros e confirmada a permissão para publicar os materiais de terceiros.
 As referências foram incluídas temporariamente em [docs](docs/README.md),
 sem alteração; suas licenças serão normalizadas conforme necessário, em
 contato com os autores.
+
+Na revisão seguinte, foi solicitada a correção do carregamento da imagem
+SC5 e confirmada a autorização para publicar a imagem fornecida e sua
+conversão. Enter avança do diagnóstico compatível; Esc sai para o DOS.

@@ -23,6 +23,9 @@ FEITO NA FUNDACAO
   produziu o mesmo SHA-256 do build local.
 - Emulador: 2 MB e 4 MB aceitos; 1 MB e ausencia de FM indicados como
   falha; MSX2 e DOS1 rejeitados com mensagem textual.
+- Imagem de abertura: build converte a arte fornecida para SC5 e gera sua
+  paleta; diagnostico compatível permite avancar com Enter. Falhas de
+  arquivo sao informadas e Esc retorna ao DOS.
 
 LIMITACOES
 - SCC aparece como N/T: falta uma deteccao confiavel que nao perturbe
@@ -52,3 +55,5 @@ Documentos de referencia nao foram removidos.
 e confirmou permissao de publicar todos os materiais de referencia. Analise
 de Marcelo Silveira e usada apenas para referencia e depuracao; licencas
 serao normalizadas conforme necessario em contato com os autores.
+2026-11-27 — Correcao da leitura SC5 solicitada; usuario confirmou a
+autorizacao para publicar a imagem de abertura e sua conversao.
