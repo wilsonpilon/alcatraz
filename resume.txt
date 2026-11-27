@@ -70,10 +70,18 @@ FEITO NA FUNDACAO
   Cinco casos de idioma passaram no openMSX, incluindo erros e Esc.
 - Manual inicial em MANUAL.md e mapa visual MAPA.png com 140 posicoes,
   objetos iniciais e codigos direcionais. Ambos sao referencia em evolucao;
-  salas, comandos e inventario do remake ainda nao foram implementados.
+  registravam o estado anterior a primeira cela jogavel.
+- Versao 3.1: cela R079 em SCREEN 5, com tijolos, chao azul e teto cinza;
+  inventario e comandos em portugues e ingles. Oeste informa o corredor do
+  guarda, ainda inacessivel. Lencol pode ser pego, solto ou transformado
+  em tiras e corda, que tambem podem ser deixadas e recuperadas.
+- Testes no openMSX: cela e comandos nos dois idiomas, cinco casos de
+  idioma, quatro configuracoes de hardware e dez casos da abertura.
+  Na primeira tentativa da regressao SC5, uma gravacao FM contou nove
+  disparos; na repeticao, todos os casos e gravacoes passaram.
 
 LIMITACOES
-- Nao ha musica ou jogo implementados.
+- Apenas a primeira sala existe; nao ha fuga completa, salvamento ou musica.
 - Sem teste em hardware real; deteccao FM limitada a ROM MSX-MUSIC.
 - Referencias em docs foram incluidas temporariamente, com autorizacao
   informada pelo usuario; licencas serao normalizadas conforme necessario.
@@ -94,10 +102,12 @@ SUBTAREFAS
    VDP, VRAM e mapper.
 5. Som: compor e testar trilha original FM+PSG.
 6. Integracao: exercitar trajetos, regressao, hardware e distribuicao.
-7. Abertura: integrar musica quando o usuario fornecer os detalhes e
-   substituir a tela provisoria pelo jogo.
+7. Abertura: integrar musica quando o usuario fornecer os detalhes.
 
 HISTORICO
+2026-11-27 — Usuario solicitou iniciar o jogo pela cela inicial, com cena,
+inventario, entrada e indicacao de saidas e objetos. Implementada R079;
+as demais salas ficam para etapas futuras.
 2026-11-27 — Usuario solicitou iniciar o manual do jogo e criar um mapa
 visual das salas. PNG gerado da mesma listagem BASIC usada pelo MAPA.md.
 2026-11-27 — Primeira conversa: escopo, requisitos, creditos, versoes e

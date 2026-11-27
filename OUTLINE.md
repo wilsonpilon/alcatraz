@@ -24,8 +24,8 @@ entre 512 e comandos gráficos do VDP. Permite cores por pixel e regiões
 ilustradas mais flexíveis que SCREEN 2; o custo de memória e transferência
 de imagens deve ser medido no hardware de destino. A metade superior terá a
 ilustração do local à esquerda e inventário desenhado à direita; a metade
-inferior terá a saída de texto e a entrada de comandos. A tela atual é
-apenas um diagnóstico, não o layout final.
+inferior terá a saída de texto e a entrada de comandos. A primeira cela
+já usa essa divisão, ainda sujeita a melhorias.
 
 Paleta: preto e azuis escuros para profundidade, branco para informação e
 vermelho como acento dramático. Desenvolver arte original, coesa e legível
@@ -59,7 +59,7 @@ promete compatibilidade com MSX1 ou MSX2. A RAM é total, não RAM livre
 garantida; a alocação real deverá ser verificada quando houver recursos.
 O diagnóstico atual não garante descobrir FM sem ROM de
 identificação. Dispositivos incompatíveis recebem indicação e não iniciam
-o jogo; não existe jogo implementado ainda.
+o jogo; apenas a primeira cela está implementada.
 
 ## Segmentação proposta
 
@@ -78,6 +78,12 @@ o jogo; não existe jogo implementado ainda.
 ## Conversas e decisões
 
 ### 2026-11-27
+
+O usuário pediu iniciar o jogo pela cela: paredes de tijolos, chão azul,
+teto cinza escuro, inventário, comandos e saídas. R079 foi implementada
+com uma saída oeste para o corredor do guarda indicado, mas ainda não
+acessível. O lençol pode ser manipulado e transformado em tiras e corda;
+as demais salas e regras continuam futuras.
 
 O usuário solicitou um manual inicial e um mapa visual das salas. O manual
 distingue os controles existentes das regras do BASIC e dos planos; o PNG

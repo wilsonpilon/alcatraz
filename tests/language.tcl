@@ -196,14 +196,14 @@ proc check_title {} {
 	}
 	keymatrixdown 8 0x01
 	after time 0.3 {keymatrixup 8 0x01}
-	after time 10 check_placeholder
+	after time 12 check_game
 }
 
-proc check_placeholder {} {
+proc check_game {} {
 	set image [debug read_block VRAM 0 27136]
-	if {![text_matches $image $::font 4 70 90 "GAME IN DEVELOPMENT"] ||
-		![text_matches $image $::font 4 100 106 "ESC: EXIT"]} {
-		fail "tela provisoria em ingles"
+	if {![text_matches $image $::font 9 8 2 "ALCATRAZ  /  CELL"] ||
+		![text_matches $image $::font 9 8 119 "YOU ARE IN YOUR CELL."]} {
+		fail "cela inicial em ingles"
 	}
 	leave
 }

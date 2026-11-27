@@ -1,0 +1,10 @@
+#pragma once
+
+#include "msxgl.h"
+
+enum { GAME_INPUT_NONE, GAME_INPUT_ESCAPE, GAME_INPUT_ENTER, GAME_INPUT_BACKSPACE,
+	GAME_INPUT_NORTH, GAME_INPUT_SOUTH, GAME_INPUT_EAST, GAME_INPUT_WEST,
+	GAME_INPUT_CHARACTER = 32 };
+
+void GameInput_Reset(void);
+u8 GameInput_Read(void);

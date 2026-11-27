@@ -224,6 +224,7 @@ proc snapshot {case} {
 				set ::shots_started [machine_info time]
 				set ::first_shot 0
 				set ::last_shot 0
+				set ::game_transition 0
 				set ::credits_restored 0
 				set ::psg_sounding 0
 				set ::fm_sounding 0
@@ -296,10 +297,13 @@ proc probe_shots {} {
 		set ::last_shot $now
 		screenshot -raw [file join $::output shots.png]
 	}
+	if {$::last_shot && !$::game_transition && !([debug read {VDP regs} 1] & 0x40)} {
+		set ::game_transition $now
+	}
 	if {([debug read {VDP regs} 1] & 0x40) &&
-		[text_matches $image $::game_font 4 56 90 "JOGO EM DESENVOLVIMENTO"] &&
-		[text_matches $image $::game_font 4 100 106 "ESC: SAIR"]} {
-		set ::after_shots [expr {$now - $::last_shot}]
+		[text_matches $image $::game_font 9 8 2 "ALCATRAZ  /  CELA"] &&
+		[text_matches $image $::game_font 9 8 119 "VOCE ESTA EM SUA CELA."]} {
+		set ::after_shots [expr {$::game_transition - $::last_shot}]
 		set ::PSG_ch1_record ""
 		set {::MSX Music_ch1_record} ""
 		set {::MSX Music_ch12_record} ""
@@ -320,8 +324,8 @@ proc probe_shots {} {
 }
 proc check_start {} {
 	set image [debug read_block VRAM 0 27136]
-	set text1 [text_matches $image $::game_font 4 56 90 "JOGO EM DESENVOLVIMENTO"]
-	set text2 [text_matches $image $::game_font 4 100 106 "ESC: SAIR"]
+	set text1 [text_matches $image $::game_font 9 8 2 "ALCATRAZ  /  CELA"]
+	set text2 [text_matches $image $::game_font 9 8 119 "VOCE ESTA EM SUA CELA."]
 	set file [open [file join $::output start-detail.log] w]
 	puts $file "held=$::space_held_ok changed=[expr {$image ne $::title}] text1=$text1 text2=$text2 first=$::first_shot last=$::last_shot restored=$::credits_restored psg=$::psg_sounding fm=$::fm_sounding rhythm_hits=$::rhythm_hits wait=$::after_shots frequency=$::frequency_ok"
 	close $file

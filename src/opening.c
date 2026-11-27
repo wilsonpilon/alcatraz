@@ -4,6 +4,7 @@
 #include "draw.h"
 #include "opening_shots.h"
 #include "title_logo.h"
+#include "game.h"
 #include "font/font_mgl_std1.h"
 #include "../out/opening_palette.h"
 
@@ -85,24 +86,6 @@ static bool show_title(Language language)
 	return TRUE;
 }
 
-static void show_unfinished_game(Language language)
-{
-	VDP_EnableDisplay(FALSE);
-	VDP_SetPalette(g_diagnostic_palette);
-	VDP_CommandHMMV(0, 0, 256, 212, 0);
-	Print_SetBitmapFont(g_Font_MGL_Sample6);
-	Print_SetMode(PRINT_MODE_BITMAP);
-	Print_SetColor(4, 0);
-	Print_SetPosition(language == LANGUAGE_ENGLISH ? 70 : 56, 90);
-	Print_DrawText(language == LANGUAGE_ENGLISH ? "GAME IN DEVELOPMENT" : "JOGO EM DESENVOLVIMENTO");
-	Print_SetPosition(100, 106);
-	Print_DrawText(language == LANGUAGE_ENGLISH ? "ESC: EXIT" : "ESC: SAIR");
-	VDP_CommandWait();
-	VDP_EnableDisplay(TRUE);
-	while (!Keyboard_IsKeyPressed(KEY_ESC))
-		Halt();
-}
-
 u8 Opening_Show(Language language)
 {
 	VDP_EnableDisplay(FALSE);
@@ -138,6 +121,6 @@ u8 Opening_Show(Language language)
 	VDP_CommandHMMM(0, 437, 0, 181, 256, 15);
 	VDP_CommandWait();
 	if (OpeningShots_Play())
-		show_unfinished_game(language);
+		Game_Run(language);
 	return 0;
 }

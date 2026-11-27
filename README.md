@@ -6,9 +6,9 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 2.10 — Frank Morris: seleção de idioma
+## 3.1 — Al Capone: primeira cela jogável
 
-Pré-release: ainda não há jogo, mapa jogável, parser nem música. Após as verificações
+Pré-release: apenas a cela inicial está jogável. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
 mantém a imagem por cerca de 2,5 a 3 segundos e avança automaticamente para
 a seleção de idioma em SCREEN 5. Use **esquerda/direita** para escolher
@@ -25,14 +25,20 @@ instrução **Tecle [ESPACO] para comecar** ou **Press [SPACE] to start**.
 **Espaço** remove créditos e
 instrução, mostra dez impactos diagonais de vidro com ruído PSG e camadas
 de percussão FM e, após
-cerca de dois segundos, avança para uma tela provisória que informa que o
-jogo está em desenvolvimento. **Esc** retorna ao DOS, inclusive durante a
-animação. O jogo e a música ainda não foram implementados; as futuras
-mensagens e comandos de jogo deverão acompanhar o idioma escolhido.
+cerca de dois segundos, avança para a cela inicial. **Esc** retorna ao DOS,
+inclusive durante a animação e o jogo.
 As mensagens de DOS/modelo exibidas antes da seleção permanecem em português.
 A imagem é carregada de
 `ALCATRAZ.SC5` no diretório atual do MSX-DOS. Ausência ou corrupção do
 arquivo produz uma mensagem de erro.
+
+Na cela, a cena e o inventário ocupam a parte superior, com texto e comandos
+abaixo. Digite `OLHE`, `PEGUE LENCOL`, `RASGUE LENCOL`, `AMARRE TIRAS`
+ou consulte os demais comandos no [manual](MANUAL.md). N, S e L são paredes;
+O indica o corredor do guarda, ainda não implementado. As setas também
+funcionam; em inglês usam-se N, S, E, W. Apenas o lençol e suas
+transformações podem ser manipulados. Não há outras salas jogáveis,
+salvamento, parser completo ou música.
 
 O mapper é medido pelo total de segmentos do mapper principal informado pelo
 DOS 2, não pela soma dos cartuchos nem pela quantidade livre. A detecção de
@@ -71,6 +77,8 @@ durante as animações, falhas de arquivo e bloqueio em máquina incompatível:
 `pwsh -File tests\run-sc5.ps1 -OpenMSX caminho\openmsx.exe`.
 Para testar a seleção, os dois idiomas, Esc, falha de imagem e ausência de FM:
 `pwsh -File tests\run-language.ps1 -OpenMSX caminho\openmsx.exe`.
+Para testar a cela, comandos, inventário, direções e saída em ambos os idiomas:
+`pwsh -File tests\run-game.ps1 -OpenMSX caminho\openmsx.exe`.
 
 Para comparar a abertura com a listagem BASIC local em
 `docs\disprosoft.bas`, execute
@@ -84,6 +92,8 @@ O código está dividido em inicialização (`src\main.c`), diagnóstico
 (`src\diagnostic.c`), abertura Disprosoft (`src\disprosoft.c`), título
 (`src\title_logo.c`), imagem SC5 (`src\opening.c`) e impactos com som
 (`src\opening_shots.c`); `src\language.c` concentra a seleção de idioma.
+O início do jogo está separado em controle (`src\game.c`), estado e comandos
+(`src\game_model.c`), teclado (`src\game_input.c`) e desenho (`src\game_ui.c`).
 A abertura Disprosoft
 desenha primitivas em SCREEN 2; os contornos de arcos são uma aproximação
 inteira ao BASIC. O logotipo do título usa as coordenadas da listagem
