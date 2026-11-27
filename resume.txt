@@ -68,6 +68,9 @@ FEITO NA FUNDACAO
 - Versao 2.10: selecao com bandeiras apos Disprosoft, setas e Enter;
   diagnostico, titulo, erro SC5 e tela provisoria em portugues ou ingles.
   Cinco casos de idioma passaram no openMSX, incluindo erros e Esc.
+- Manual inicial em MANUAL.md e mapa visual MAPA.png com 140 posicoes,
+  objetos iniciais e codigos direcionais. Ambos sao referencia em evolucao;
+  salas, comandos e inventario do remake ainda nao foram implementados.
 
 LIMITACOES
 - Nao ha musica ou jogo implementados.
@@ -95,6 +98,8 @@ SUBTAREFAS
    substituir a tela provisoria pelo jogo.
 
 HISTORICO
+2026-11-27 — Usuario solicitou iniciar o manual do jogo e criar um mapa
+visual das salas. PNG gerado da mesma listagem BASIC usada pelo MAPA.md.
 2026-11-27 — Primeira conversa: escopo, requisitos, creditos, versoes e
 primeiro marco Robert Stroud. Preferencia Copilot confirmada: wilsonpilon.
 Documentos de referencia nao foram removidos.

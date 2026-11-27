@@ -129,6 +129,10 @@ o registro de decisões, andamento e próximos passos.
 
 ## Pesquisa e mapa de referência
 
+- [Manual do jogo](MANUAL.md): requisitos, controles atuais e orientações
+  provisórias para a aventura.
+- [Mapa visual em PNG](MAPA.png): grade inicial, objetos e passagens;
+  contém spoilers e não representa um jogo já implementado.
 - [Mapa de salas](MAPA.md): 140 posições do BASIC, saídas direcionais,
   condições e correspondência com o roteiro ilustrado.
 - [Referência do original](REFERENCIA_ORIGINAL.md): vocabulário, objetos,
@@ -138,5 +142,8 @@ o registro de decisões, andamento e próximos passos.
 
 Os documentos são gerados por `python tools\mapa_alcatraz.py`. Para conferir
 os dados e a geração: `python -m unittest discover -s tests -p test_mapa_alcatraz.py`.
+Para gerar o PNG, instale Pillow (`python -m pip install Pillow`) e execute
+`python tools\render_mapa.py`; requer também a fonte Arial ou DejaVu Sans.
+Para testar as ligações desenhadas: `python -m unittest discover -s tests -p test_render_mapa.py`.
 Para reproduzir o percurso no BASIC original em inglês com openMSX:
 `python tests\run_original_route.py --openmsx caminho\openmsx.exe`.

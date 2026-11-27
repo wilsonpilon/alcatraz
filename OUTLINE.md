@@ -79,6 +79,11 @@ o jogo; não existe jogo implementado ainda.
 
 ### 2026-11-27
 
+O usuário solicitou um manual inicial e um mapa visual das salas. O manual
+distingue os controles existentes das regras do BASIC e dos planos; o PNG
+mostra as 140 posições iniciais e as passagens direcionais como referência,
+com aviso de spoilers.
+
 O projeto parte do BASIC e de documentos locais, mas pretende uma recriação
 gráfica no espírito da edição MSX2 de San Quentin. Solicitados MSX 2+, mapper
 de 2048 KB, DOS 2, PSG, FM obrigatório e SCC opcional; paleta vermelha, azul,
