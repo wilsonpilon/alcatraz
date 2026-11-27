@@ -1,6 +1,8 @@
-# Alcatraz — percurso de referência
+# Alcatraz — solução de referência
 
 Percurso proposto a partir do roteiro fornecido (Luiz Fernando Fiacadori), do roteiro de Alex Dijkstra e da listagem portuguesa. As direções foram calculadas sobre os códigos de [MAPA.md](MAPA.md), com as alterações e condições relevantes indicadas abaixo. Uma reprodução automatizada no openMSX alcançou a vitória no BASIC original em inglês (`docs/alcatraz.bas`), usando a tradução dos comandos; isso não testa todas as ações nem o remake.
+
+**Spoilers — referência temporária de desenvolvimento.** No remake atual, apenas R079, R078 e R077 estão implementadas. O restante do percurso descreve o original e ainda precisa ser implementado e validado no remake.
 
 Cada direção leva a uma sala; não pule as posições intermediárias. Para repetir o teste: `python tests/run_original_route.py --openmsx caminho\openmsx.exe`.
 

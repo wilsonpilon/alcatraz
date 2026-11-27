@@ -96,15 +96,16 @@ o inventário e as demais regras ainda estão incompletos.
 
 ## Mapa e dicas
 
-O [mapa visual](MAPA.png) mostra a grade inicial de 140 posições, inclusive
+O [mapa visual no repositório](https://github.com/wilsonpilon/alcatraz/blob/main/MAPA.png) mostra a grade inicial de 140 posições, inclusive
 corredores vazios, e contém **spoilers** sobre itens e perigos. As ligações
 podem ser direcionais e mudar durante a partida; a cadeira elétrica é um
 destino fatal, não uma sala normalmente alcançável.
 
-Para consultar condições e saídas por sala, veja [MAPA.md](MAPA.md). O
-[percurso de referência](PERCURSO.md) revela a solução: foi validado na
+Para consultar condições e saídas por sala, veja o [mapa de salas](https://github.com/wilsonpilon/alcatraz/blob/main/MAPA.md). A
+[solução de referência](https://github.com/wilsonpilon/alcatraz/blob/main/RESOLVE.md) revela o percurso: foi validado na
 listagem BASIC em inglês, não no remake. A [referência do original](REFERENCIA_ORIGINAL.md)
 detalha os comandos, objetos e regras pesquisados.
+O mapa e a solução são temporários e não acompanham o ZIP de release.
 
 ## Créditos
 

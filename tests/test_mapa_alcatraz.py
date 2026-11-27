@@ -64,14 +64,14 @@ class MapaAlcatrazTest(unittest.TestCase):
         expected = {
             "MAPA.md": MAP.render_map(self.rooms, self.objects),
             "REFERENCIA_ORIGINAL.md": MAP.render_reference(self.lines, self.objects, self.verbs, self.actions),
-            "PERCURSO.md": MAP.render_route(self.rooms, self.objects),
+            "RESOLVE.md": MAP.render_route(self.rooms, self.objects),
         }
         for name, content in expected.items():
             with self.subTest(name=name):
                 self.assertEqual((ROOT / name).read_text(encoding="utf-8"), content)
 
     def test_emulator_events_check_destinations_and_translate_commands(self):
-        route = (ROOT / "PERCURSO.md").read_text(encoding="utf-8")
+        route = (ROOT / "RESOLVE.md").read_text(encoding="utf-8")
         events = ROUTE.events_from_route(route)
         self.assertIn("{cmd {OPEN BARS KEYS}}", events)
         self.assertEqual(events[-1], "{cmd {GO INTO WELL}}")

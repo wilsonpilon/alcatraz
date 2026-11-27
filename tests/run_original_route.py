@@ -68,7 +68,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--openmsx", default="openmsx.exe", help="Caminho do openMSX")
     args = parser.parse_args()
-    events = events_from_route((ROOT / "PERCURSO.md").read_text(encoding="utf-8"))
+    events = events_from_route((ROOT / "RESOLVE.md").read_text(encoding="utf-8"))
     with tempfile.TemporaryDirectory(prefix="alcatraz-route-") as directory:
         work = Path(directory)
         shutil.copyfile(ROOT / "docs" / "alcatraz.bas", work / "ALCATRAZ.BAS")

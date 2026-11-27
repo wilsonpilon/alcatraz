@@ -79,6 +79,11 @@ o jogo; apenas as três primeiras posições estão implementadas.
 
 ### 2026-11-27
 
+O usuário solicitou uma solução para testar a conclusão do jogo. O percurso
+validado do original passou a ser [RESOLVE.md](RESOLVE.md). Junto com
+`MAPA.md` e `MAPA.png`, é uma referência temporária mantida no repositório,
+excluída dos ZIPs de release e a remover ao final do desenvolvimento.
+
 O usuário pediu a sequência do guarda e a navegação por R078 e R077.
 Implementadas as duas posições, as grades, a chave, a comida e as ações
 do percurso inicial; objetos mantêm a sala em que foram deixados. Norte e
@@ -194,7 +199,7 @@ para os corredores.
 - [MAPA.md](MAPA.md): desenho e tabela de salas e passagens iniciais.
 - [REFERENCIA_ORIGINAL.md](REFERENCIA_ORIGINAL.md): parser, 24 verbos,
   35 substantivos, 55 despachos e fragmentos literais das mensagens.
-- [PERCURSO.md](PERCURSO.md): caminho de fuga por salas. O percurso foi
+- [RESOLVE.md](RESOLVE.md): caminho de fuga por salas. O percurso foi
   executado no openMSX com 273 eventos e chegou à vitória na versão BASIC
   em inglês; isso não valida todas as regras nem implementa o remake.
 

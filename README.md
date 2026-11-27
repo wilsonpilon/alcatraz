@@ -112,6 +112,15 @@ build.bat --milestone "Frank Morris" "Descricao do marco"
 O nome e subtítulo ficam em `version.json`; o binário também mostra X.Y.
 Releases e tags são publicados separadamente, após validação; compilar não
 faz upload automático. `build.bat` altera `version.json` localmente.
+Após compilar, os ZIPs de release são montados por
+`pwsh -File tools\package-release.ps1` (sem sobrescrever um ZIP existente).
+O pacote contém o programa, a imagem SC5, a documentação e as licenças;
+arquivos de sistema MSX-DOS não são incluídos.
+Os arquivos temporários `MAPA.md`, `MAPA.png` e `RESOLVE.md` permanecem no
+repositório durante o desenvolvimento, mas não entram nesses pacotes; serão
+removidos ao concluir o jogo, com os ajustes necessários nas referências e
+testes. Os arquivos de código-fonte gerados automaticamente pelo GitHub
+refletem o conteúdo da respectiva tag.
 
 ## Créditos e referências
 
@@ -143,13 +152,13 @@ o registro de decisões, andamento e próximos passos.
 
 - [Manual do jogo](MANUAL.md): requisitos, controles atuais e orientações
   provisórias para a aventura.
-- [Mapa visual em PNG](MAPA.png): grade inicial, objetos e passagens;
+- [Mapa visual em PNG](https://github.com/wilsonpilon/alcatraz/blob/main/MAPA.png): grade inicial, objetos e passagens;
   contém spoilers e não representa um jogo já implementado.
-- [Mapa de salas](MAPA.md): 140 posições do BASIC, saídas direcionais,
+- [Mapa de salas](https://github.com/wilsonpilon/alcatraz/blob/main/MAPA.md): 140 posições do BASIC, saídas direcionais,
   condições e correspondência com o roteiro ilustrado.
 - [Referência do original](REFERENCIA_ORIGINAL.md): vocabulário, objetos,
   despacho de ações e fragmentos literais de mensagens.
-- [Percurso de referência](PERCURSO.md): caminho de fuga validado na versão
+- [Solução de referência](https://github.com/wilsonpilon/alcatraz/blob/main/RESOLVE.md): caminho de fuga validado na versão
   BASIC em inglês, sem pressupor que o remake já esteja jogável.
 
 Os documentos são gerados por `python tools\mapa_alcatraz.py`. Para conferir

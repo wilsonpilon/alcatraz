@@ -377,7 +377,7 @@ def render_route(rooms, objects):
     light = False
     recorder = False
     out = [
-        "# Alcatraz — percurso de referência",
+        "# Alcatraz — solução de referência",
         "",
         "Percurso proposto a partir do roteiro fornecido (Luiz Fernando "
         "Fiacadori), do roteiro de Alex Dijkstra e da listagem portuguesa. "
@@ -386,6 +386,11 @@ def render_route(rooms, objects):
         "Uma reprodução automatizada no openMSX alcançou a vitória no BASIC "
         "original em inglês (`docs/alcatraz.bas`), usando a tradução dos "
         "comandos; isso não testa todas as ações nem o remake.",
+        "",
+        "**Spoilers — referência temporária de desenvolvimento.** "
+        "No remake atual, apenas R079, R078 e R077 estão implementadas. "
+        "O restante do percurso descreve o original e ainda precisa ser "
+        "implementado e validado no remake.",
         "",
         "Cada direção leva a uma sala; não pule as posições intermediárias. "
         "Para repetir o teste: `python tests/run_original_route.py "
@@ -550,7 +555,7 @@ def main():
     outputs = {
         ROOT / "MAPA.md": render_map(rooms, objects),
         ROOT / "REFERENCIA_ORIGINAL.md": render_reference(lines, objects, verbs, actions),
-        ROOT / "PERCURSO.md": render_route(rooms, objects),
+        ROOT / "RESOLVE.md": render_route(rooms, objects),
     }
     for path, content in outputs.items():
         path.write_text(content, encoding="utf-8", newline="\n")

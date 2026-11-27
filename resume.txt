@@ -61,7 +61,7 @@ FEITO NA FUNDACAO
   mapa do remake ainda nao foram implementados.
 - MAPA.md: 140 posicoes com ligacoes direcionais, armadilhas e objetos;
   REFERENCIA_ORIGINAL.md: verbos, substantivos, despachos e mensagens;
-  PERCURSO.md: roteiro de fuga por salas.
+  RESOLVE.md: roteiro de fuga por salas.
 - Validacao: seis testes da geracao e topologia; percurso de 273 eventos
   chegou a vitoria no openMSX com o BASIC original em ingles. Isso nao
   valida todos os quebra-cabecas nem implementa o jogo novo.
@@ -113,6 +113,11 @@ SUBTAREFAS
 7. Abertura: integrar musica quando o usuario fornecer os detalhes.
 
 HISTORICO
+2026-11-27 — Usuario solicitou RESOLVE.md com a solucao para testar o
+fechamento. O percurso do original foi renomeado, mantendo sua geracao e
+teste. MAPA.md, MAPA.png e RESOLVE.md ficam no GitHub durante o
+desenvolvimento, fora dos ZIPs; remover ao final, ajustando testes e links.
+Usuario pediu atualizar tambem os ZIPs antigos que continham esses arquivos.
 2026-11-27 — Usuario solicitou sequencia do guarda e movimentacao entre
 R079, R078 e R077. Implementados os comandos iniciais em ambos os idiomas.
 2026-11-27 — Usuario solicitou iniciar o jogo pela cela inicial, com cena,
