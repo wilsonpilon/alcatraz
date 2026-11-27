@@ -4,14 +4,16 @@ $root = Split-Path -Parent $PSScriptRoot
 $out = Join-Path $root "out"
 $binary = Join-Path $out "alcatraz.com"
 $screen = Join-Path $out "ALCATRAZ.SC5"
+$original = Join-Path $root "docs\alcatraz.bas"
 $msxtar = Join-Path $root "MSXgl\tools\build\msxtar\msxtar.exe"
 $dos = Join-Path $root "MSXgl\tools\build\DOS"
 if (!(Test-Path $binary) -or !(Test-Path $screen)) { throw "Compile o projeto antes de executar os testes." }
+if (!(Test-Path $original)) { throw "Listagem original nao encontrada: $original" }
 Copy-Item (Join-Path $dos "MSXDOS2.SYS"), (Join-Path $dos "COMMAND2.COM") $out
 [IO.File]::WriteAllText((Join-Path $out "AUTOEXEC.BAT"), "ALCATRAZ`r`n", [Text.Encoding]::ASCII)
 Push-Location $out
 try {
-    & $msxtar -cf smoke.dsk --dos2 --size=720K MSXDOS2.SYS COMMAND2.COM AUTOEXEC.BAT alcatraz.com ALCATRAZ.SC5
+    & $msxtar -cf smoke.dsk --dos2 --size=720K MSXDOS2.SYS COMMAND2.COM AUTOEXEC.BAT alcatraz.com ALCATRAZ.SC5 $original
     if ($LASTEXITCODE -ne 0) { throw "Falha ao criar disco de teste." }
 } finally {
     Pop-Location

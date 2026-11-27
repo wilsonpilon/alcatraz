@@ -51,6 +51,11 @@ Para executar os quatro testes gráficos de hardware no openMSX, depois do
 build, use `pwsh -File tests\run-smoke.ps1 -OpenMSX caminho\openmsx.exe`.
 São necessárias as ROMs das máquinas Panasonic FS-A1WX e FS-A1FX, além das
 extensões do openMSX. O disco temporário de teste é gerado em `out\`.
+Ele inclui `ALCATRAZ.BAS`, cópia de `docs\alcatraz.bas`, para comparação com
+a listagem de referência no MSX-BASIC. O disco inicia a recriação por
+`AUTOEXEC.BAT`; para executar o BASIC, inicie o MSX-BASIC com suporte a disco,
+insira `smoke.dsk` e execute `RUN "ALCATRAZ.BAS"`. A listagem incluída é a
+versão em inglês presente em `docs\alcatraz.bas`.
 Para testar imagem, créditos, logotipo, espaço, saída, falhas de arquivo e
 bloqueio em máquina incompatível:
 `pwsh -File tests\run-sc5.ps1 -OpenMSX caminho\openmsx.exe`.

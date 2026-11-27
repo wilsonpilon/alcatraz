@@ -82,3 +82,6 @@ a reproducao quanto a listagem BASIC de referencia da Disprosoft.
 2026-11-27 — Usuario solicitou logotipo original sobre a imagem SC5, creditos,
 e espera por espaco. A listagem intro.bas estava vazia; coordenadas foram
 obtidas de docs\abertura.asc. Animacao e musica ficam para proxima etapa.
+2026-11-27 — Usuario solicitou incluir docs\alcatraz.bas no smoke.dsk para
+comparar a recriacao com a listagem de referencia. A copia foi verificada
+byte a byte e executada no openMSX; e a versao em ingles desse arquivo.
