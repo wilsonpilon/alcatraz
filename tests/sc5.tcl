@@ -223,8 +223,12 @@ proc snapshot {case} {
 				set ::credits_restored 0
 				set ::psg_sounding 0
 				set ::fm_sounding 0
+				set ::rhythm_hits 0
+				set ::rhythm_active 0
 				set ::PSG_ch1_record [file join $::output psg.wav]
 				set {::MSX Music_ch1_record} [file join $::output fm.wav]
+				set {::MSX Music_ch12_record} [file join $::output fm-drum-a.wav]
+				set {::MSX Music_ch13_record} [file join $::output fm-drum-b.wav]
 				keymatrixdown 8 0x01
 				after time 2 {keymatrixup 8 0x01}
 				after time 0.05 probe_shots
@@ -249,7 +253,8 @@ proc snapshot {case} {
 proc check_shot_escape {} {
 	set log [open [file join $::output shots-escape.log] a]
 	set ok [expr {$::shot_before_escape && ([debug read {VDP regs} 0] & 14) != 6 &&
-		[debug read {PSG regs} 8] == 0 && ([debug read {MSX Music regs} 0x20] & 0x10) == 0}]
+		[debug read {PSG regs} 8] == 0 && ([debug read {MSX Music regs} 0x20] & 0x10) == 0 &&
+		([debug read {MSX Music regs} 0x0e] & 0x3f) == 0}]
 	puts $log [expr {$ok ? "PASS_EXIT" : "FAIL_EXIT"}]
 	close $log
 	exit
@@ -265,6 +270,9 @@ proc probe_shots {} {
 		set ::psg_sounding 1
 	}
 	if {[debug read {MSX Music regs} 0x20] & 0x10} {set ::fm_sounding 1}
+	set rhythm [expr {([debug read {MSX Music regs} 0x0e] & 0x38) == 0x38}]
+	if {$rhythm && !$::rhythm_active} {incr ::rhythm_hits}
+	set ::rhythm_active $rhythm
 	set count 0
 	for {set i 0} {$i < 10} {incr i} {
 		set x [expr {20 + $i * 24}]
@@ -290,6 +298,8 @@ proc probe_shots {} {
 		set ::after_shots [expr {$now - $::last_shot}]
 		set ::PSG_ch1_record ""
 		set {::MSX Music_ch1_record} ""
+		set {::MSX Music_ch12_record} ""
+		set {::MSX Music_ch13_record} ""
 		after time 0.1 check_start
 		return
 	}
@@ -297,6 +307,8 @@ proc probe_shots {} {
 		set ::after_shots 0
 		set ::PSG_ch1_record ""
 		set {::MSX Music_ch1_record} ""
+		set {::MSX Music_ch12_record} ""
+		set {::MSX Music_ch13_record} ""
 		check_start
 		return
 	}
@@ -307,12 +319,13 @@ proc check_start {} {
 	set text1 [text_matches $image $::game_font 4 56 90 "JOGO EM DESENVOLVIMENTO"]
 	set text2 [text_matches $image $::game_font 4 100 106 "ESC: SAIR"]
 	set file [open [file join $::output start-detail.log] w]
-	puts $file "held=$::space_held_ok changed=[expr {$image ne $::title}] text1=$text1 text2=$text2 first=$::first_shot last=$::last_shot restored=$::credits_restored psg=$::psg_sounding fm=$::fm_sounding wait=$::after_shots frequency=$::frequency_ok"
+	puts $file "held=$::space_held_ok changed=[expr {$image ne $::title}] text1=$text1 text2=$text2 first=$::first_shot last=$::last_shot restored=$::credits_restored psg=$::psg_sounding fm=$::fm_sounding rhythm_hits=$::rhythm_hits wait=$::after_shots frequency=$::frequency_ok"
 	close $file
 	screenshot -raw [file join $::output start.png]
 	set ::start_ok [expr {$::space_held_ok && $image ne $::title && $::first_shot && $::last_shot && $::frequency_ok &&
-		$::credits_restored && $::psg_sounding && $::fm_sounding && $::after_shots >= 1.8 && $::after_shots <= 2.8 &&
+		$::credits_restored && $::psg_sounding && $::fm_sounding && $::rhythm_hits == 10 && $::after_shots >= 1.8 && $::after_shots <= 2.8 &&
 		[debug read {PSG regs} 8] == 0 && ([debug read {MSX Music regs} 0x20] & 0x10) == 0 &&
+		([debug read {MSX Music regs} 0x0e] & 0x3f) == 0 &&
 		([debug read {VDP regs} 0] & 14) == 6 && $text1 && $text2}]
 	exit_with_escape $::env(ALCATRAZ_SC5_CASE)
 }

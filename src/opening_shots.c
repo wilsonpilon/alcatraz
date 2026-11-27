@@ -52,24 +52,39 @@ bool OpeningShots_Play(void)
 	for (i = 0; i < sizeof(patch); ++i)
 		MSXMusic_SetRegister(MSXMUSIC_REG_USER_0 + i, patch[i]);
 	MSXMusic_SetRegister(MSXMUSIC_REG_INST_1, 0x03);
+	MSXMusic_SetRegister(MSXMUSIC_REG_FREQ_7, 0x70);
+	MSXMusic_SetRegister(MSXMUSIC_REG_CTRL_7, 0x04);
+	MSXMusic_SetRegister(MSXMUSIC_REG_FREQ_8, 0xA0);
+	MSXMusic_SetRegister(MSXMUSIC_REG_CTRL_8, 0x05);
+	MSXMusic_SetRegister(MSXMUSIC_REG_FREQ_9, 0x50);
+	MSXMusic_SetRegister(MSXMUSIC_REG_CTRL_9, 0x05);
+	MSXMusic_SetRegister(MSXMUSIC_REG_RHYTHM_VOL_0, 0x04);
+	MSXMusic_SetRegister(MSXMUSIC_REG_RHYTHM_VOL_1, 0xF4);
+	MSXMusic_SetRegister(MSXMUSIC_REG_RHYTHM_VOL_2, 0xFF);
+	MSXMusic_SetRegister(MSXMUSIC_REG_RHYTHM, 0x20);
 
 	for (i = 0; i < 10; ++i)
 	{
 		draw_impact(20 + (u16)i * 24, 48 + (u16)i * 10);
-		PSG_SetRegister(PSG_REG_AMP_A, 12);
+		PSG_SetRegister(PSG_REG_NOISE, 8);
+		PSG_SetRegister(PSG_REG_AMP_A, 11);
 		MSXMusic_SetRegister(MSXMUSIC_REG_FREQ_1, 0x80 + (i & 1) * 16);
 		MSXMusic_SetRegister(MSXMUSIC_REG_CTRL_1, 0x18);
+		MSXMusic_SetRegister(MSXMUSIC_REG_RHYTHM, 0x38);
 		if (!wait_frames(2)) { completed = FALSE; break; }
-		PSG_SetRegister(PSG_REG_AMP_A, 9);
+		PSG_SetRegister(PSG_REG_NOISE, 18);
+		PSG_SetRegister(PSG_REG_AMP_A, 7);
 		MSXMusic_SetRegister(MSXMUSIC_REG_CTRL_1, 0x08);
+		MSXMusic_SetRegister(MSXMUSIC_REG_RHYTHM, 0x20);
 		if (!wait_frames(2)) { completed = FALSE; break; }
-		PSG_SetRegister(PSG_REG_AMP_A, 4);
+		PSG_SetRegister(PSG_REG_AMP_A, 3);
 		if (!wait_frames(2)) { completed = FALSE; break; }
 		PSG_SetRegister(PSG_REG_AMP_A, 0);
 		if (!wait_frames(3)) { completed = FALSE; break; }
 	}
 	PSG_SetRegister(PSG_REG_AMP_A, 0);
 	MSXMusic_SetRegister(MSXMUSIC_REG_CTRL_1, 0x00);
+	MSXMusic_SetRegister(MSXMUSIC_REG_RHYTHM, 0x00);
 	PSG_SetRegister(PSG_REG_NOISE, noise);
 	PSG_SetRegister(PSG_REG_MIXER, mixer);
 	PSG_SetRegister(PSG_REG_AMP_A, volume);

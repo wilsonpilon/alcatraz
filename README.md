@@ -6,25 +6,24 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 2.7 — Frank Morris: rajada na abertura
+## 2.8 — Frank Morris: rajada com percussão FM
 
 Pré-release: ainda não há jogo, mapa, parser nem música. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
 mantém a imagem por cerca de 2,5 a 3 segundos e avança automaticamente para
 o diagnóstico em SCREEN 5. Exige MSX 2+, MSX-DOS 2, mapper
-principal de pelo menos 2048 KB, PSG e MSX-MUSIC/FM. SCC é opcional e
-**ainda não é detectado**; aparece como N/T (não testado). Em sistemas
+principal de pelo menos 2048 KB, PSG e MSX-MUSIC/FM. Em sistemas
 anteriores a MSX 2+ ou DOS 2, a mensagem é exibida em texto.
 
 Em uma máquina compatível, pressione **Enter** no diagnóstico para abrir a
 tela de título: a imagem aparece primeiro e o logotipo original é desenhado
 progressivamente, letra por letra, seguido dos créditos e da
 instrução **Tecle [ESPACO] para comecar**. **Espaço** remove créditos e
-instrução, mostra dez impactos diagonais de vidro com sons PSG e FM e, após
+instrução, mostra dez impactos diagonais de vidro com ruído PSG e camadas
+de percussão FM e, após
 cerca de dois segundos, avança para uma tela provisória que informa que o
 jogo está em desenvolvimento. **Esc** retorna ao DOS, inclusive durante a
-animação. A música ainda não foi implementada; a utilização de SCC foi
-adiada por escolha do usuário enquanto não houver detecção segura.
+animação. A música ainda não foi implementada.
 A imagem é carregada de
 `ALCATRAZ.SC5` no diretório atual do MSX-DOS. Ausência ou corrupção do
 arquivo produz uma mensagem de erro.

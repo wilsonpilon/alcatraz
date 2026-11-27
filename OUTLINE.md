@@ -44,16 +44,16 @@ O modo principal continua sendo SCREEN 5.
 
 Proposta: blues triste do Delta do Mississippi, com alternativa mais pesada
 próxima do heavy metal; experimentar uma combinação atmosférica. FM é a base,
-PSG complementa, SCC é opcional. Compor material original e estudar silêncio,
+PSG complementa. Compor material original e estudar silêncio,
 repetição e efeitos; não presumir uma época histórica para a narrativa.
 
 ## Plataforma e limitações
 
 Alvo solicitado: MSX 2+ ou superior, DOS 2, mapper principal de 2048 KB,
-PSG e MSX-MUSIC; SCC opcional. O original é MSX1, mas esta recriação não
+PSG e MSX-MUSIC. O original é MSX1, mas esta recriação não
 promete compatibilidade com MSX1 ou MSX2. A RAM é total, não RAM livre
 garantida; a alocação real deverá ser verificada quando houver recursos.
-O diagnóstico atual não testa SCC e não garante descobrir FM sem ROM de
+O diagnóstico atual não garante descobrir FM sem ROM de
 identificação. Dispositivos incompatíveis recebem indicação e não iniciam
 o jogo; não existe jogo implementado ainda.
 
@@ -66,7 +66,7 @@ o jogo; não existe jogo implementado ainda.
    testes focados e comparação com o original.
 4. **Apresentação:** identidade visual, interface em painéis, cenas e mapa
    gráfico; protótipo medido quanto a memória e tempo de desenho.
-5. **Áudio:** protótipos musicais originais, FM + PSG e SCC opcional.
+5. **Áudio:** protótipos musicais originais, FM + PSG.
 6. **Integração:** percursos, regressões, acessibilidade da leitura, testes em
    diferentes configurações e hardware real; empacotamento e distribuição.
 
@@ -125,3 +125,7 @@ impactos de vidro e sons, seguida de uma pausa de cerca de dois segundos.
 Os créditos e a instrução desaparecem antes dos tiros; o fundo original é
 restaurado. Os efeitos usam PSG e FM. O usuário optou por adiar o SCC,
 pois a detecção automática disponível pode alterar outros cartuchos.
+
+Na conversa seguinte, o usuário aprovou os gráficos, pediu tiros mais
+encorpados e decidiu eliminar o suporte a SCC e sua linha no diagnóstico.
+Os disparos combinam ruído PSG com corpo e percussão de bumbo e caixa FM.

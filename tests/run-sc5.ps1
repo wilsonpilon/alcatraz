@@ -107,6 +107,8 @@ foreach ($case in $cases) {
     if ($case -eq "valid" -or $case -eq "shots-50") {
         Test-WaveSound (Join-Path $work "psg.wav")
         Test-WaveSound (Join-Path $work "fm.wav")
+        Test-WaveSound (Join-Path $work "fm-drum-a.wav")
+        Test-WaveSound (Join-Path $work "fm-drum-b.wav")
     }
     Write-Output "${case}: PASS"
 }

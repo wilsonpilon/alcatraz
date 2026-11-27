@@ -10,7 +10,7 @@ triste ou heavy metal. A epoca da historia permanece em aberto.
 
 REQUISITOS
 MSX 2+ ou superior; MSX-DOS 2; mapper principal de pelo menos 2048 KB;
-PSG; MSX-MUSIC/FM obrigatorio; SCC opcional. Escolha inicial: SCREEN 5.
+PSG; MSX-MUSIC/FM obrigatorio. Escolha inicial: SCREEN 5.
 Versao X.Y: Y aumenta em cada build oficial bem-sucedido; novo marco X
 inicia em Y=1. Cada marco recebe nome de preso de Alcatraz.
 
@@ -52,10 +52,12 @@ FEITO NA FUNDACAO
 - Versao 2.7 validada no openMSX: dez casos SC5, sons gravados
   separadamente em PSG e FM, pausa em 50/60 Hz, quatro configuracoes de
   hardware e comparacao da abertura Disprosoft.
+- Versao 2.8: percussao FM reforca a rajada e o diagnostico nao exibe SCC.
+  Validados dez casos SC5, dez disparos nas camadas PSG e FM, saida por Esc,
+  frequencias de 50/60 Hz, quatro configuracoes e abertura Disprosoft.
 
 LIMITACOES
-- SCC aparece como N/T: falta uma deteccao confiavel que nao perturbe
-  outros cartuchos. Nao ha musica ou jogo implementados.
+- Nao ha musica ou jogo implementados.
 - Sem teste em hardware real; deteccao FM limitada a ROM MSX-MUSIC.
 - Referencias em docs foram incluidas temporariamente, com autorizacao
   informada pelo usuario; licencas serao normalizadas conforme necessario.
@@ -65,17 +67,17 @@ LIMITACOES
   marca ou logotipo.
 
 SUBTAREFAS
-1. Fundacao: detectar SCC sem efeitos colaterais; testar saida para DOS,
-   cartuchos, compatibilidade e reproducao de builds em ambiente limpo.
+1. Fundacao: testar saida para DOS, cartuchos, compatibilidade e reproducao
+   de builds em ambiente limpo.
 2. Pesquisa: registrar mapa, objetos, verbos, regras e dependencias; comparar
    as fontes com as analises e manter autoria e procedencia.
 3. Motor: estado, salas, navegacao, parser, inventario, acoes, testes e saves.
 4. Arte/interface: prototipar SCREEN 5, paines, cenas, mapa e legibilidade;
    medir custo de CPU, VDP, VRAM e mapper.
-5. Som: compor e testar trilha original FM+PSG, avaliar SCC opcional.
+5. Som: compor e testar trilha original FM+PSG.
 6. Integracao: exercitar trajetos, regressao, hardware e distribuicao.
-7. Abertura: integrar musica quando o usuario fornecer os detalhes;
-   substituir a tela provisoria pelo jogo e avaliar uso seguro do SCC.
+7. Abertura: integrar musica quando o usuario fornecer os detalhes e
+   substituir a tela provisoria pelo jogo.
 
 HISTORICO
 2026-11-27 — Primeira conversa: escopo, requisitos, creditos, versoes e
@@ -106,3 +108,6 @@ centralizado na abertura.
 2026-11-27 — Usuario solicitou rajada diagonal com marcas de vidro e som,
 remocao dos textos e pausa de dois segundos antes da tela provisoria.
 Escolheu adiar SCC devido ao risco da deteccao automatica em outros slots.
+2026-11-27 — Usuario aprovou os graficos, pediu tiros mais encorpados e
+decidiu remover o SCC do projeto e da tela de diagnostico. A rajada passa
+a combinar ruido PSG, corpo FM e percussao FM de bumbo e caixa.

@@ -66,8 +66,6 @@ bool Diagnostic_Run(void)
 	row(90, "MAPPER 2048 KB", g_mapper_ok);
 	row(101, "PSG", g_psg_ok);
 	row(112, "FM / MSX-MUSIC", g_fm_ok);
-	text(32, 123, "SCC OPCIONAL");
-	text(181, 123, "N/T");
 	text(32, 142, g_mapper_ok && g_psg_ok && g_fm_ok ? "SISTEMA COMPATIVEL" : "REQUISITOS NAO ATENDIDOS");
 	Print_SetColor(WHITE, BLUE);
 	text(20, 161, "ENTER: ABRIR  ESC: SAIR  V" ALCATRAZ_VERSION);
