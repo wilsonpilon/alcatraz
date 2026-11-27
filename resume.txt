@@ -2,9 +2,10 @@ ALCATRAZ — REGISTRO VIVO
 Atualizado: 2026-11-27
 
 CONVERSA E OBJETIVO
-Recriar o adventure MSX-BASIC de Wilson Fazzio Martins, com nova arte,
-ambientes, mapa e inventario graficos, inspirados na apresentacao de San
-Quentin. Marcelo / MarMSX documentou a implementacao; Aoineko criou MSXgl.
+Recriar o adventure MSX-BASIC de Wilson Fazzio Martins como salas
+interconectadas, com nova arte e inventario grafico, inspirados na
+apresentacao de San Quentin. Marcelo / MarMSX documentou a implementacao;
+Aoineko criou MSXgl.
 Paleta vermelha, azul, branca e preta; musica original possivelmente blues
 triste ou heavy metal. A epoca da historia permanece em aberto.
 
@@ -55,6 +56,9 @@ FEITO NA FUNDACAO
 - Versao 2.8: percussao FM reforca a rajada e o diagnostico nao exibe SCC.
   Validados dez casos SC5, dez disparos nas camadas PSG e FM, saida por Esc,
   frequencias de 50/60 Hz, quatro configuracoes e abertura Disprosoft.
+- Estudo da interface e do motor MSX2 de San Quentin e comparacao inicial
+  com movimentacao, objetos e parser do BASIC de Alcatraz. O layout e o
+  mapa do remake ainda nao foram implementados.
 
 LIMITACOES
 - Nao ha musica ou jogo implementados.
@@ -69,11 +73,12 @@ LIMITACOES
 SUBTAREFAS
 1. Fundacao: testar saida para DOS, cartuchos, compatibilidade e reproducao
    de builds em ambiente limpo.
-2. Pesquisa: registrar mapa, objetos, verbos, regras e dependencias; comparar
-   as fontes com as analises e manter autoria e procedencia.
+2. Pesquisa: aguardar o mapa do usuario; confronta-lo com o BASIC e registrar
+   salas, passagens, objetos, verbos, regras e dependencias, com procedencia.
 3. Motor: estado, salas, navegacao, parser, inventario, acoes, testes e saves.
-4. Arte/interface: prototipar SCREEN 5, paines, cenas, mapa e legibilidade;
-   medir custo de CPU, VDP, VRAM e mapper.
+4. Arte/interface: prototipar SCREEN 5 com cena e inventario na metade
+   superior, mensagens e entrada na inferior; medir legibilidade, CPU,
+   VDP, VRAM e mapper.
 5. Som: compor e testar trilha original FM+PSG.
 6. Integracao: exercitar trajetos, regressao, hardware e distribuicao.
 7. Abertura: integrar musica quando o usuario fornecer os detalhes e
@@ -111,3 +116,9 @@ Escolheu adiar SCC devido ao risco da deteccao automatica em outros slots.
 2026-11-27 — Usuario aprovou os graficos, pediu tiros mais encorpados e
 decidiu remover o SCC do projeto e da tela de diagnostico. A rajada passa
 a combinar ruido PSG, corpo FM e percussao FM de bumbo e caixa.
+2026-11-27 — Usuario definiu salas interconectadas em vez da visao superior
+do labirinto e pediu interface como San Quentin: cena e inventario desenhado
+acima, texto e comando abaixo. Enviara o mapa completo. Pesquisa inicial:
+San Quentin separa entrada, parser, motor e interface; Alcatraz usa codigos
+de passagem mutaveis, objetos por coordenada e comandos com ate dois objetos.
+Detalhes e medidas de referencia estao registrados em OUTLINE.md.

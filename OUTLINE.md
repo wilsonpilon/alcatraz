@@ -12,18 +12,20 @@ O mapa semigráfico é parte de sua identidade. A análise de Marcelo / MarMSX
 confundir a documentação com o produto novo.
 
 Em San Quentin, a edição MSX2 combina ilustrações, texto e inventário em
-painéis; sua abertura tem trilha FM + PSG. Para Alcatraz, a intenção é
-preservar a leitura espacial do labirinto, mas criar cenas, interface e
-atmosfera próprias, não copiar artes ou música de terceiros.
+painéis; sua abertura tem trilha FM + PSG. Alcatraz será adaptado para
+salas interconectadas, em vez da visão superior do labirinto original.
+As regras e os quebra-cabeças serão estudados no BASIC de Alcatraz; o mapa
+de salas será definido a partir do material que o usuário ainda enviará.
 
 ## Direção visual
 
 SCREEN 5 é a escolha inicial: 256 pixels de largura, 16 cores escolhidas
 entre 512 e comandos gráficos do VDP. Permite cores por pixel e regiões
 ilustradas mais flexíveis que SCREEN 2; o custo de memória e transferência
-de imagens deve ser medido no hardware de destino. Planejar imagens de salas,
-texto/comandos, inventário e uma representação do mapa, com legibilidade
-prioritária. A tela atual é apenas um diagnóstico, não o layout final.
+de imagens deve ser medido no hardware de destino. A metade superior terá a
+ilustração do local à esquerda e inventário desenhado à direita; a metade
+inferior terá a saída de texto e a entrada de comandos. A tela atual é
+apenas um diagnóstico, não o layout final.
 
 Paleta: preto e azuis escuros para profundidade, branco para informação e
 vermelho como acento dramático. Desenvolver arte original, coesa e legível
@@ -61,11 +63,12 @@ o jogo; não existe jogo implementado ainda.
 
 1. **Fundação:** diagnóstico, build reproduzível, versões e testes em emulador.
 2. **Pesquisa:** inventariar salas, saídas, objetos, parser e condições;
-   separar fatos verificados de hipóteses e registrar procedência.
+   separar fatos verificados de hipóteses e registrar procedência; aguardar
+   o mapa do usuário antes de definir a conversão para salas.
 3. **Motor:** estado, mapa, navegação, inventário, parser, ações e persistência;
    testes focados e comparação com o original.
-4. **Apresentação:** identidade visual, interface em painéis, cenas e mapa
-   gráfico; protótipo medido quanto a memória e tempo de desenho.
+4. **Apresentação:** identidade visual, interface em painéis e cenas;
+   protótipo medido quanto a memória e tempo de desenho.
 5. **Áudio:** protótipos musicais originais, FM + PSG.
 6. **Integração:** percursos, regressões, acessibilidade da leitura, testes em
    diferentes configurações e hardware real; empacotamento e distribuição.
@@ -129,3 +132,35 @@ pois a detecção automática disponível pode alterar outros cartuchos.
 Na conversa seguinte, o usuário aprovou os gráficos, pediu tiros mais
 encorpados e decidiu eliminar o suporte a SCC e sua linha no diagnóstico.
 Os disparos combinam ruído PSG com corpo e percussão de bumbo e caixa FM.
+
+Na conversa seguinte, o usuário definiu a adaptação do labirinto para salas
+interconectadas, com parser textual e interface no estilo de San Quentin.
+Na metade superior ficam cena à esquerda e inventário desenhado à direita;
+na inferior, mensagens e comando. O usuário enviará o mapa completo.
+
+### Estudo comparativo: San Quentin e Alcatraz
+
+- Em `E:\sanquentin\src\sq_game_ui_msx2.c`, SCREEN 5 usa 256 × 212
+  pixels: a cena ocupa aproximadamente x=5..125 e y=20..102; o inventário
+  ocupa o painel direito. A faixa de mensagens tem nove linhas de até 40
+  caracteres, e a entrada fica separada na base. F1–F4 enviam as direções.
+- A cena de San Quentin é composta por primitivas gráficas e pode mudar
+  conforme o estado; o inventário apresenta ícones de 16 × 16 e nomes,
+  com até três itens visíveis. A interface redesenha os painéis quando
+  localização, condições ou objetos mudam, e rola o texto usando o VDP.
+  Esses números são referência, não limites já decididos para Alcatraz.
+- Em San Quentin, `sq_input.c`, `sq_parser.c`, `sq_engine.c` e
+  `sq_game.c` separam entrada, interpretação, regras e ciclo do jogo.
+  O parser de San Quentin aceita prefixos; isso não define automaticamente
+  a linguagem do remake de Alcatraz.
+- Em `docs\alcatraz.asc`, o BASIC guarda o labirinto em `PO$`, com quatro
+  códigos direcionais por posição. A movimentação consulta esses códigos,
+  que também podem ser alterados por ações. Objetos são associados a
+  coordenadas ou ao inventário em `SU$`; comandos podem envolver verbo e
+  até dois objetos, e flags controlam condições como luz e equipamentos.
+  Preservar essas dependências exige estudar as ações e os pontos de
+  passagem antes de agrupar posições em salas.
+- Próximo passo de pesquisa: confrontar o mapa a receber com o BASIC e
+  documentar, para cada sala e passagem, objetos, ações, bloqueios,
+  mudanças de estado e consequências. Não presumir quantidade de salas,
+  limite de inventário ou conexões definitivas antes dessa análise.
