@@ -13,6 +13,10 @@ referência para compreender e depurar o jogo original de **Wilson Fazzio
 Martins**. Os direitos das demais imagens, traduções e documentos pertencem
 a seus respectivos autores.
 
+A listagem `disprosoft.bas` registra a abertura de uma das empresas que
+comercializaram o jogo. O responsável pelo projeto confirmou possuir as
+permissões necessárias para publicar a listagem e a reprodução da abertura.
+
 As licenças e atribuições específicas serão normalizadas conforme necessário,
 em conversa com os autores originais. A licença do código da recriação não
 deve ser presumida para os materiais desta pasta.

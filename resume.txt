@@ -26,6 +26,13 @@ FEITO NA FUNDACAO
 - Imagem de abertura: build converte a arte fornecida para SC5 e gera sua
   paleta; diagnostico compatível permite avancar com Enter. Falhas de
   arquivo sao informadas e Esc retorna ao DOS.
+- Marco 2.1, Frank Morris: abertura Disprosoft em SCREEN 2 antes do
+  diagnostico, usando primitivas em C e pausa automatica; main, diagnostico,
+  abertura Disprosoft e carregamento SC5 separados em modulos.
+- Comparacao openMSX com a listagem BASIC local: mesma paleta e texto,
+  19 pixels diferentes em 49152, nos contornos aproximados dos arcos.
+  A linha 40/41 mesclada e corrigida somente na copia temporaria de teste.
+- Regressoes: quatro configuracoes de hardware e seis casos SC5 passaram.
 
 LIMITACOES
 - SCC aparece como N/T: falta uma deteccao confiavel que nao perturbe
@@ -35,6 +42,8 @@ LIMITACOES
   informada pelo usuario; licencas serao normalizadas conforme necessario.
   MSXgl deve ser instalado separadamente.
 - A contagem e do mapper principal total, nao de segmentos livres.
+- A reproducao grafica da Disprosoft nao concede direitos a terceiros sobre
+  marca ou logotipo.
 
 SUBTAREFAS
 1. Fundacao: detectar SCC sem efeitos colaterais; testar saida para DOS,
@@ -57,3 +66,8 @@ de Marcelo Silveira e usada apenas para referencia e depuracao; licencas
 serao normalizadas conforme necessario em contato com os autores.
 2026-11-27 — Correcao da leitura SC5 solicitada; usuario confirmou a
 autorizacao para publicar a imagem de abertura e sua conversao.
+2026-11-27 — Usuario solicitou reproduzir a abertura Disprosoft em SCREEN 2
+antes do jogo, traduzindo as primitivas BASIC para C, e dividir o codigo
+por responsabilidades. Criados modulos e testes de comparacao e transicao.
+O usuario confirmou possuir as permissoes necessarias para publicar tanto
+a reproducao quanto a listagem BASIC de referencia da Disprosoft.

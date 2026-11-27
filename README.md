@@ -6,10 +6,12 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 1.2 — Robert Stroud: imagem de abertura SC5
+## 2.1 — Frank Morris: abertura Disprosoft e modularização
 
-Pré-release: ainda não há jogo, mapa, parser nem música. O programa mostra
-uma tela de diagnóstico em SCREEN 5 e exige MSX 2+, MSX-DOS 2, mapper
+Pré-release: ainda não há jogo, mapa, parser nem música. Após as verificações
+mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
+mantém a imagem por cerca de 2,5 a 3 segundos e avança automaticamente para
+o diagnóstico em SCREEN 5. Exige MSX 2+, MSX-DOS 2, mapper
 principal de pelo menos 2048 KB, PSG e MSX-MUSIC/FM. SCC é opcional e
 **ainda não é detectado**; aparece como N/T (não testado). Em sistemas
 anteriores a MSX 2+ ou DOS 2, a mensagem é exibida em texto.
@@ -47,6 +49,19 @@ extensões do openMSX. O disco temporário de teste é gerado em `out\`.
 Para testar imagem válida, falhas de arquivo e bloqueio em máquina incompatível:
 `pwsh -File tests\run-sc5.ps1 -OpenMSX caminho\openmsx.exe`.
 
+Para comparar a abertura com a listagem BASIC local em
+`docs\disprosoft.bas`, execute
+`pwsh -File tests\run-logo.ps1 -OpenMSX caminho\openmsx.exe`. O teste corrige
+apenas na cópia temporária a junção das linhas 40 e 41 e mantém a imagem
+original na tela para comparação. Na máquina testada, a tradução apresenta
+19 pixels de diferença nos contornos, em 49.152 pixels; paleta e texto
+coincidem. As capturas e discos de teste ficam em `out\logo-test\`.
+
+O código está dividido em inicialização (`src\main.c`), diagnóstico
+(`src\diagnostic.c`), abertura Disprosoft (`src\disprosoft.c`) e imagem SC5
+(`src\opening.c`). A abertura desenha retas, caixas, arcos e preenchimentos
+em SCREEN 2; os contornos de arcos são uma aproximação inteira ao BASIC.
+
 Cada compilação **bem-sucedida pelo `build.bat`** incrementa Y em X.Y;
 uma falha não altera a versão. Um marco completo inicia o próximo X em Y=1:
 
@@ -65,6 +80,12 @@ faz upload automático. `build.bat` altera `version.json` localmente.
 - **Marcelo / MarMSX**: análise detalhada das regras e implementação original.
 - **Guillaume “Aoineko” Blanchard**: biblioteca MSXgl e fonte usada no stub,
   distribuídas sob [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- **ASCII Corporation**: fonte latina de BIOS incluída pelo MSXgl; o arquivo
+  informa que seu uso é livre em aplicações MSX.
+- **Disprosoft**: identidade visual reproduzida a partir da listagem BASIC
+  fornecida para referência. O responsável pelo projeto confirmou possuir as
+  permissões necessárias para publicar a reprodução e a listagem; isso não
+  implica concessão de direitos a terceiros sobre a marca ou o logotipo.
 - A imagem de abertura foi fornecida pelo usuário, que confirmou autorização
   para publicá-la e publicar sua conversão; sua licença específica ainda
   será definida.
@@ -72,7 +93,8 @@ faz upload automático. `build.bat` altera `version.json` localmente.
   Seus autores conservam seus direitos; suas licenças serão normalizadas
   conforme necessário, em contato com os autores.
 
-O código do projeto usa a licença [GPL-3.0](LICENSE); a biblioteca, suas
-fontes e ferramentas têm as licenças indicadas pelo MSXgl.
+O código do projeto usa a licença [GPL-3.0](LICENSE); essa licença não concede
+direitos sobre o logotipo. A biblioteca, suas fontes e ferramentas têm as
+licenças indicadas pelo MSXgl.
 Veja [OUTLINE.md](OUTLINE.md) para a visão e [resume.txt](resume.txt) para
 o registro de decisões, andamento e próximos passos.

@@ -32,6 +32,11 @@ Uma imagem experimental abre após o diagnóstico. O modo suporta até 212
 linhas, mas a interface final e a necessidade de
 VRAM devem ser validadas antes de serem fixadas.
 
+A abertura Disprosoft precede o diagnóstico, em SCREEN 2, em homenagem à
+apresentação da listagem BASIC fornecida. A tradução desenha primitivas em C;
+os arcos usam uma aproximação inteira e não são idênticos pixel a pixel.
+O modo principal continua sendo SCREEN 5.
+
 ## Som e narrativa
 
 Proposta: blues triste do Delta do Mississippi, com alternativa mais pesada
@@ -86,3 +91,12 @@ contato com os autores.
 Na revisão seguinte, foi solicitada a correção do carregamento da imagem
 SC5 e confirmada a autorização para publicar a imagem fornecida e sua
 conversão. Enter avança do diagnóstico compatível; Esc sai para o DOS.
+
+Na conversa seguinte, foi solicitada a reprodução da abertura Disprosoft
+em SCREEN 2, antes do jogo, e a separação profissional por responsabilidades.
+A listagem local contém uma junção das linhas 40 e 41, interpretada no teste
+como duas instruções distintas, sem modificar o original. Comparação no
+openMSX: mesma paleta e texto, 19 pixels de diferença nos contornos. O código
+foi separado em inicialização, abertura Disprosoft, diagnóstico e imagem SC5.
+O responsável confirmou ter as permissões necessárias para publicar a
+reprodução da abertura e a listagem BASIC de referência.

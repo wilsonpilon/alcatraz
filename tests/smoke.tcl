@@ -15,12 +15,20 @@ after time 35 {
 	after time 0.3 capture
 }
 proc capture {} {
-	set name $::env(ALCATRAZ_TEST_NAME)
-	set log [open [file join $::output "${name}.log"] w]
 	set screen [expr {([debug read {VDP regs} 0] & 14) == 6}]
 	set mapper [debug read memory $::addresses(mapper)]
 	set psg [debug read memory $::addresses(psg)]
 	set fm [debug read memory $::addresses(fm)]
+	# The BIOS may temporarily map ROM over the program's page during an interrupt.
+	if {$mapper > 1 || $psg > 1 || $fm > 1} {
+		if {![info exists ::retries]} {set ::retries 0}
+		if {[incr ::retries] < 30} {
+			after time 0.1 capture
+			return
+		}
+	}
+	set name $::env(ALCATRAZ_TEST_NAME)
+	set log [open [file join $::output "${name}.log"] w]
 	set passed [expr {$screen && $mapper == $::env(ALCATRAZ_TEST_MAPPER)
 		&& $psg != 0 && ($fm != 0) == $::env(ALCATRAZ_TEST_FM)}]
 	puts $log "screen=$screen mapper=$mapper psg=$psg fm=$fm"
