@@ -101,6 +101,17 @@ def map_mark(a, b):
     return "?"
 
 
+def render_game_map(rooms):
+    out = [
+        "/* Generated from docs/alcatraz.asc by tools/mapa_alcatraz.py. */",
+        "static const c8 g_room_passages[GAME_ROOM_COUNT][5] = {",
+    ]
+    for row in rooms:
+        out.append("\t" + ", ".join(f'"{cell}"' for cell in row) + ",")
+    out.extend(["};", ""])
+    return "\n".join(out)
+
+
 def render_map(rooms, objects):
     by_room = {}
     room_names = {
@@ -553,6 +564,7 @@ def main():
     lines = basic_lines(SOURCE.read_text(encoding="utf-8"))
     rooms, objects, verbs, actions = initial_data(lines)
     outputs = {
+        ROOT / "src" / "game_map_data.h": render_game_map(rooms),
         ROOT / "MAPA.md": render_map(rooms, objects),
         ROOT / "REFERENCIA_ORIGINAL.md": render_reference(lines, objects, verbs, actions),
         ROOT / "RESOLVE.md": render_route(rooms, objects),

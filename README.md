@@ -6,7 +6,7 @@ com caracteres semigráficos. A nova versão pretende trazer ambientes
 ilustrados, inventário gráfico e música, inspirando-se na apresentação MSX2
 do projeto [San Quentin](https://github.com/wilsonpilon/sanquentin).
 
-## 4.1 — Whitey Bulger: guarda e primeiras salas
+## 5.1 — Machine Gun Kelly: base do mapa
 
 Pré-release: as posições R079, R078 e R077 estão jogáveis. Após as verificações
 mínimas de DOS e modelo, o programa recria o logotipo Disprosoft em SCREEN 2,
@@ -40,6 +40,10 @@ R077. As setas também funcionam; em inglês usam-se N, S, E, W. Objetos
 deixados permanecem na sala correta. As saídas norte e sul de R077 são
 indicadas, mas ainda não são acessíveis. Não há outras salas jogáveis,
 salvamento, parser completo ou música.
+
+O mapa de dados contém as 140 posições e os códigos direcionais iniciais do
+BASIC. Apenas as três salas acima estão liberadas; as demais condições e
+alterações de passagem serão implementadas junto com as próximas áreas.
 
 O mapper é medido pelo total de segmentos do mapper principal informado pelo
 DOS 2, não pela soma dos cartuchos nem pela quantidade livre. A detecção de
@@ -95,7 +99,8 @@ O código está dividido em inicialização (`src\main.c`), diagnóstico
 (`src\title_logo.c`), imagem SC5 (`src\opening.c`) e impactos com som
 (`src\opening_shots.c`); `src\language.c` concentra a seleção de idioma.
 O início do jogo está separado em controle (`src\game.c`), estado e comandos
-(`src\game_model.c`), teclado (`src\game_input.c`) e desenho (`src\game_ui.c`).
+(`src\game_model.c`), mapa (`src\game_map.c`), teclado (`src\game_input.c`)
+e desenho (`src\game_ui.c`).
 A abertura Disprosoft
 desenha primitivas em SCREEN 2; os contornos de arcos são uma aproximação
 inteira ao BASIC. O logotipo do título usa as coordenadas da listagem
@@ -161,7 +166,8 @@ o registro de decisões, andamento e próximos passos.
 - [Solução de referência](https://github.com/wilsonpilon/alcatraz/blob/main/RESOLVE.md): caminho de fuga validado na versão
   BASIC em inglês, sem pressupor que o remake já esteja jogável.
 
-Os documentos são gerados por `python tools\mapa_alcatraz.py`. Para conferir
+Os documentos de referência e os dados iniciais do mapa são gerados por
+`python tools\mapa_alcatraz.py`. Para conferir
 os dados e a geração: `python -m unittest discover -s tests -p test_mapa_alcatraz.py`.
 Para gerar o PNG, instale Pillow (`python -m pip install Pillow`) e execute
 `python tools\render_mapa.py`; requer também a fonte Arial ou DejaVu Sans.

@@ -1,4 +1,5 @@
 #include "game_model.h"
+#include "game_map.h"
 
 static bool matches(const c8* value, const c8* expected)
 {
@@ -32,20 +33,18 @@ static bool visible(const GameState* state, GameItem item)
 	return state->items[item] == ITEM_CARRIED || state->items[item] == state->room;
 }
 
-static GameResult move(GameState* state, u8 direction)
+static GameResult move(GameState* state, GameDirection direction)
 {
-	/* N, S, E, W: the values are room IDs from the original grid. */
-	static const u8 exits[3][4] = {
-		{ 63, 91, ROOM_GUARD, 0 },
-		{ 0, 0, ROOM_CELL, ROOM_CORRIDOR },
-		{ 0, 0, 0, ROOM_GUARD }
-	};
-	u8 destination = exits[state->room - ROOM_CORRIDOR][direction];
+	c8 passage = GameMap_Passage(state->room, direction);
+	u8 destination = GameMap_Destination(state->room, direction);
 	if (!destination)
 		return RESULT_WALL;
-	if (state->room == ROOM_GUARD && direction == 3 && !state->gate_open)
+	if (state->room == ROOM_GUARD && direction == GAME_WEST && !state->gate_open)
 		return RESULT_BARS_CLOSED;
-	if (destination < ROOM_CORRIDOR || destination > ROOM_CELL)
+	if (!GameMap_RoomReady(destination))
+		return RESULT_UNBUILT;
+	if (passage != '0' && !(state->room == ROOM_GUARD &&
+		direction == GAME_WEST && passage == '2' && state->gate_open))
 		return RESULT_UNBUILT;
 	state->room = destination;
 	return RESULT_MOVED;
@@ -78,14 +77,14 @@ GameResult GameModel_Command(GameState* state, Language language, const c8* inpu
 	if (!j)
 		return RESULT_EMPTY;
 	if (matches(command, "N") || equals(command, "NORTE", "NORTH", language))
-		return move(state, 0);
+		return move(state, GAME_NORTH);
 	if (matches(command, "S") || equals(command, "SUL", "SOUTH", language))
-		return move(state, 1);
+		return move(state, GAME_SOUTH);
 	if (equals(command, "L", "E", language) || equals(command, "LESTE", "EAST", language))
-		return move(state, 2);
+		return move(state, GAME_EAST);
 	if (equals(command, "O", "W", language) ||
 		equals(command, "OESTE", "WEST", language))
-		return move(state, 3);
+		return move(state, GAME_WEST);
 	if (equals(command, "OLHE", "LOOK", language))
 		return RESULT_LOOK;
 	if (equals(command, "INVENTARIO", "INVENTORY", language))

@@ -87,6 +87,11 @@ FEITO NA FUNDACAO
   incluindo itens deixados, setas e saidas ainda indisponiveis. O percurso
   portugues tambem passou com mapper de 4 MB. O teste de hardware passou a
   conferir os resultados na VRAM, evitando leitura de banco incorreto.
+- Versao 5.1: O1 concluido. Mapa inicial das 140 posicoes e 560 passagens
+  direcionais gerado do BASIC e separado do motor. Apenas R077, R078 e R079
+  estao prontas; codigos de outras condicoes ainda nao executam seus efeitos
+  nem as alteracoes de passagem. Saidas comparadas com o original; percurso
+  das tres salas testado em portugues e ingles, mais quatro casos de hardware.
 
 LIMITACOES
 - Somente tres posicoes existem; nao ha fuga completa, salvamento ou musica.
@@ -97,6 +102,20 @@ LIMITACOES
 - A contagem e do mapper principal total, nao de segmentos livres.
 - A reproducao grafica da Disprosoft nao concede direitos a terceiros sobre
   marca ou logotipo.
+
+PLANO DO MAPA — O1 A O5
+O1: Base das 140 posicoes e passagens direcionais; manter jogaveis somente
+    R079, R078 e R077 e bloquear salas ainda nao implementadas. CONCLUIDO.
+O2: Primeiro setor: R077, R066, R064, presidiario e caminho da serra R024.
+    PROXIMO.
+O3: Segundo setor: R092, R104, serra e porta R035.
+O4: Demais quebras-cabecas do RESOLVE.md ate o poco e a vitoria.
+O5: Desvios, armadilhas, alternativas, melhorias visuais e verificacao geral.
+Cada marco pode ser dividido em blocos de preferencia de 30 a 90 minutos,
+sem garantia de duracao. Ao terminar cada bloco coerente: validar, atualizar
+OUTLINE.md e resume.txt, fazer commit e sincronizar. Retomar do ultimo ponto
+salvo e enviado; isso nao significa que o jogo ja salve partidas.
+Os identificadores O1 a O5 sao independentes da versao X.Y.
 
 SUBTAREFAS
 1. Fundacao: testar saida para DOS, cartuchos, compatibilidade e reproducao
@@ -113,6 +132,8 @@ SUBTAREFAS
 7. Abertura: integrar musica quando o usuario fornecer os detalhes.
 
 HISTORICO
+2026-11-27 — Usuario aprovou a construcao gradual do mapa e pediu identificacao
+O1 a O5 para retomar o trabalho; O1 concluido e O2 proximo.
 2026-11-27 — Usuario solicitou RESOLVE.md com a solucao para testar o
 fechamento. O percurso do original foi renomeado, mantendo sua geracao e
 teste. MAPA.md, MAPA.png e RESOLVE.md ficam no GitHub durante o

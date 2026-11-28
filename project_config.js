@@ -1,5 +1,5 @@
 ProjName = "alcatraz";
-ProjModules = [ "src/main", "src/language", "src/diagnostic", "src/opening", "src/opening_shots", "src/title_logo", "src/disprosoft", "src/game", "src/game_model", "src/game_input", "src/game_ui" ];
+ProjModules = [ "src/main", "src/language", "src/diagnostic", "src/opening", "src/opening_shots", "src/title_logo", "src/disprosoft", "src/game", "src/game_model", "src/game_map", "src/game_input", "src/game_ui" ];
 LibModules = [ "system", "bios", "vdp", "draw", "print", "input", "memory", "dos", "dos_mapper", "psg", "msx-music" ];
 Machine = "2";
 Target = "DOS2";

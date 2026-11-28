@@ -1,5 +1,8 @@
 import importlib.util
 from pathlib import Path
+import shutil
+import subprocess
+import tempfile
 import unittest
 
 
@@ -62,6 +65,7 @@ class MapaAlcatrazTest(unittest.TestCase):
 
     def test_checked_in_references_match_generator(self):
         expected = {
+            "src/game_map_data.h": MAP.render_game_map(self.rooms),
             "MAPA.md": MAP.render_map(self.rooms, self.objects),
             "REFERENCIA_ORIGINAL.md": MAP.render_reference(self.lines, self.objects, self.verbs, self.actions),
             "RESOLVE.md": MAP.render_route(self.rooms, self.objects),
@@ -69,6 +73,43 @@ class MapaAlcatrazTest(unittest.TestCase):
         for name, content in expected.items():
             with self.subTest(name=name):
                 self.assertEqual((ROOT / name).read_text(encoding="utf-8"), content)
+
+    @unittest.skipUnless(shutil.which("gcc"), "gcc necessário para testar o mapa em C")
+    def test_game_map_matches_all_original_exits(self):
+        with tempfile.TemporaryDirectory(prefix="alcatraz-map-") as directory:
+            work = Path(directory)
+            (work / "msxgl.h").write_text(
+                "typedef unsigned char u8;\ntypedef char c8;\ntypedef unsigned char bool;\n",
+                encoding="ascii",
+            )
+            (work / "test.c").write_text(
+                '#include <stdio.h>\n#include "game_map.h"\n'
+                'int main(void) {\n'
+                '  int room, direction;\n'
+                '  for (room = 1; room <= GAME_ROOM_COUNT; ++room)\n'
+                '    for (direction = GAME_NORTH; direction <= GAME_WEST; ++direction)\n'
+                '      printf("%c %u %u\\n", GameMap_Passage(room, direction), '
+                'GameMap_Destination(room, direction), GameMap_RoomReady(room));\n'
+                '  return 0;\n}\n',
+                encoding="ascii",
+            )
+            binary = work / "test.exe"
+            subprocess.run(
+                ["gcc", "-std=c99", "-Wall", "-Wextra", "-Werror",
+                 "-I", str(work), "-I", str(ROOT / "src"),
+                 str(ROOT / "src" / "game_map.c"), str(work / "test.c"),
+                 "-o", str(binary)], check=True,
+            )
+            result = subprocess.run([str(binary)], check=True, capture_output=True, text=True)
+        actual = result.stdout.splitlines()
+        expected = []
+        for row_index, row in enumerate(self.rooms):
+            for x, cell in enumerate(row):
+                room = row_index * 14 + x + 1
+                for direction, (_, dx, dy) in enumerate(MAP.DIRECTIONS):
+                    dest = 0 if cell[direction] == "1" else room + dy * 14 + dx
+                    expected.append(f"{cell[direction]} {dest} {int(room in (77, 78, 79))}")
+        self.assertEqual(actual, expected)
 
     def test_emulator_events_check_destinations_and_translate_commands(self):
         route = (ROOT / "RESOLVE.md").read_text(encoding="utf-8")

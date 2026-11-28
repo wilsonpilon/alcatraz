@@ -79,8 +79,32 @@ o jogo; apenas as três primeiras posições estão implementadas.
 
 ### 2026-11-27
 
+O usuário aprovou a construção gradual do mapa, identificada pelos marcos:
+
+- **O1 — Base do mapa:** organizar as 140 posições e seus códigos de
+  passagem direcionais em dados; preservar as três salas jogáveis e impedir
+  a entrada nas demais até que suas cenas e regras sejam implementadas.
+  **Concluído em 5.1:** dados gerados do BASIC, mapa separado do motor,
+  560 saídas comparadas ao original e três salas testadas em dois idiomas.
+  Os códigos futuros ainda não executam seus efeitos ou mudanças de estado.
+- **O2 — Primeiro setor:** desde R077, chegar a R066 e R064, implementar
+  o presidiário e o caminho até a serra em R024.
+- **O3 — Segundo setor:** implementar o caminho por R092 e R104, a serra e
+  a porta em R035.
+- **O4 — Resto da fuga:** seguir [RESOLVE.md](https://github.com/wilsonpilon/alcatraz/blob/main/RESOLVE.md) em blocos de
+  quebra-cabeças até o poço e a vitória.
+- **O5 — Exploração completa:** acrescentar desvios, armadilhas, alternativas
+  e melhorias visuais; verificar a aventura completa.
+
+Cada marco pode ser dividido em blocos menores, preferencialmente de 30 a
+90 minutos, sem garantia de duração. Ao terminar um bloco coerente, validar,
+atualizar este documento e `resume.txt`, fazer commit e sincronizar. Em caso
+de interrupção, retomar do último ponto salvo e sincronizado; alterações ainda
+não salvas ou enviadas podem ser perdidas. Isso não é salvamento de partida.
+Os marcos O1–O5 identificam o plano, independentemente da versão X.Y.
+
 O usuário solicitou uma solução para testar a conclusão do jogo. O percurso
-validado do original passou a ser [RESOLVE.md](RESOLVE.md). Junto com
+validado do original passou a ser [RESOLVE.md](https://github.com/wilsonpilon/alcatraz/blob/main/RESOLVE.md). Junto com
 `MAPA.md` e `MAPA.png`, é uma referência temporária mantida no repositório,
 excluída dos ZIPs de release e a remover ao final do desenvolvimento.
 
@@ -196,10 +220,10 @@ da cadeira elétrica, e indica conexões direcionais, bloqueios e armadilhas.
 Os pontos numerados do roteiro são associados às salas sem inventar nomes
 para os corredores.
 
-- [MAPA.md](MAPA.md): desenho e tabela de salas e passagens iniciais.
+- [MAPA.md](https://github.com/wilsonpilon/alcatraz/blob/main/MAPA.md): desenho e tabela de salas e passagens iniciais.
 - [REFERENCIA_ORIGINAL.md](REFERENCIA_ORIGINAL.md): parser, 24 verbos,
   35 substantivos, 55 despachos e fragmentos literais das mensagens.
-- [RESOLVE.md](RESOLVE.md): caminho de fuga por salas. O percurso foi
+- [RESOLVE.md](https://github.com/wilsonpilon/alcatraz/blob/main/RESOLVE.md): caminho de fuga por salas. O percurso foi
   executado no openMSX com 273 eventos e chegou à vitória na versão BASIC
   em inglês; isso não valida todas as regras nem implementa o remake.
 
