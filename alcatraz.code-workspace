@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "window.title": "alcatraz [GIT PERSONAL | COPILOT PERSONAL]",
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#1F6FEB",
+      "titleBar.activeForeground": "#FFFFFF",
+      "statusBar.background": "#1F6FEB",
+      "statusBar.foreground": "#FFFFFF"
+    },
+    "files.encoding": "utf8"
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-vscode.powershell",
+      "github.copilot",
+      "github.copilot-chat"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "projectName": "alcatraz",
+  "updatedAt": "2026-11-27T06:00:20.1050268-03:00",
+  "updatedBy": "DevContext 0.3.4",
+  "contextModel": "Personal-Personal",
+  "repositoryMode": "Standalone",
+  "repository": {
+    "identity": "Personal",
+    "gitHubAccount": "wilsonpilon",
+    "sshAlias": "github.com-pessoal",
+    "userName": "Wilson Pilon",
+    "userEmail": "wilsonpilon@outlook.com"
+  },
+  "copilot": {
+    "identity": "Personal",
+    "provider": "GitHub",
+    "account": "wilsonpilon",
+    "automaticAccountSwitch": false
+  },
+  "microsoft365Copilot": {
+    "enabled": false,
+    "automaticContextTransfer": false
+  },
+  "isolation": {
+    "required": false
+  }
+}
